@@ -1,6 +1,12 @@
-# Yt saved sharer
+# Musc
 
-This is a simple web app that allows you to share your saved videos from youtube with others.
+
+## About
+The purpose of this service is to make up for limitations of YT music platform. It must be a dead simple tool to allow you to share and manage your youtube music playlists
+
+## Why
+I am a big fan of music as many of us are. There are loads of music service providers, one of which is Youtube music. It is a great music listening platform, every music item I have I store there. However it comes with some limitations.
+
 
 
 ## Developing
