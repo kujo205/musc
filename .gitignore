@@ -24,3 +24,4 @@ vite.config.ts.timestamp-*
 .idea**
 .eslintcache
 coverage**
+test-results**
