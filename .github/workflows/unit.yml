@@ -1,11 +1,11 @@
-name: CI pipeline
+name: Testing
 on:
   push:
     branches: [main, dev]
   pull_request:
     branches: [main, dev]
 jobs:
-  test:
+  unit-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
