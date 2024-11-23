@@ -8,7 +8,7 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,ts}'],
     coverage: {
       provider: 'istanbul',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'json-summary'],
       exclude: ['node_modules', 'tests', 'build/**', '.svelte-kit/**'],
       reportOnFailure: true
     }
