@@ -1,0 +1,21 @@
+generator kysely {
+  provider            = "prisma-kysely"
+  output              = "."
+  decimalTypeOverride = "number"
+  booleanTypeOverride = "boolean"
+  enumFileName        = "enums.ts"
+  fileName            = "db-types.d.ts"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+model Users {
+  id    Int    @id @default(autoincrement())
+  email String @unique(map: "users_pk") @db.VarChar(256)
+  name  String @db.VarChar(256)
+
+  @@map("users")
+}
