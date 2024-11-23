@@ -4,14 +4,14 @@ import { Kysely, MysqlDialect } from 'kysely';
 import { env } from '$env/dynamic/private';
 
 const dialect = new MysqlDialect({
-	// @ts-expect-error: incorrect type declarations in either mysql2 or kysely
-	pool: async () =>
-		createPool({
-			uri: env.DB_URL,
-			timezone: 'Z'
-		})
+  // @ts-expect-error: incorrect type declarations in either mysql2 or kysely
+  pool: async () =>
+    createPool({
+      uri: env.DB_URL,
+      timezone: 'Z'
+    })
 });
 
 export const db = new Kysely<Database>({
-	dialect
+  dialect
 });
