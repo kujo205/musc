@@ -1,7 +1,122 @@
-{"/Users/i.kuts/studying_projects/yt-music-sharer/svelte.config.js": {"path":"/Users/i.kuts/studying_projects/yt-music-sharer/svelte.config.js","statementMap":{"0":{"start":{"line":5,"column":15},"end":{"line":20,"column":1}}},"fnMap":{},"branchMap":{},"s":{"0":0},"f":{},"b":{}}
-,"/Users/i.kuts/studying_projects/yt-music-sharer/tailwind.config.ts": {"path":"/Users/i.kuts/studying_projects/yt-music-sharer/tailwind.config.ts","statementMap":{"0":{"start":{"line":5,"column":23},"end":{"line":94,"column":null}}},"fnMap":{},"branchMap":{},"s":{"0":0},"f":{},"b":{}}
-,"/Users/i.kuts/studying_projects/yt-music-sharer/src/demo.spec.ts": {"path":"/Users/i.kuts/studying_projects/yt-music-sharer/src/demo.spec.ts","statementMap":{"0":{"start":{"line":3,"column":0},"end":{"line":7,"column":null}},"1":{"start":{"line":4,"column":2},"end":{"line":6,"column":null}},"2":{"start":{"line":5,"column":4},"end":{"line":5,"column":null}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":3,"column":21},"end":{"line":3,"column":27}},"loc":{"start":{"line":3,"column":27},"end":{"line":7,"column":1}}},"1":{"name":"(anonymous_1)","decl":{"start":{"line":4,"column":30},"end":{"line":4,"column":36}},"loc":{"start":{"line":4,"column":36},"end":{"line":6,"column":3}}}},"branchMap":{},"s":{"0":1,"1":1,"2":1},"f":{"0":1,"1":1},"b":{}}
-,"/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/utils.ts": {"path":"/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/utils.ts","statementMap":{"0":{"start":{"line":5,"column":2},"end":{"line":5,"column":null}}},"fnMap":{"0":{"name":"cn","decl":{"start":{"line":4,"column":16},"end":{"line":4,"column":22}},"loc":{"start":{"line":4,"column":44},"end":{"line":6,"column":null}}}},"branchMap":{},"s":{"0":0},"f":{"0":0},"b":{}}
-,"/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/components/ui/button/button.svelte": {"path":"/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/components/ui/button/button.svelte","statementMap":{"0":{"start":{"line":45,"column":11},"end":{"line":45,"column":null}},"1":{"start":{"line":46,"column":8},"end":{"line":46,"column":null}},"2":{"start":{"line":47,"column":7},"end":{"line":47,"column":null}},"3":{"start":{"line":48,"column":8},"end":{"line":48,"column":null}},"4":{"start":{"line":49,"column":8},"end":{"line":49,"column":null}},"5":{"start":{"line":56,"column":16},"end":{"line":56,"column":28}},"6":{"start":{"line":61,"column":15},"end":{"line":61,"column":null}}},"fnMap":{"0":{"name":"(anonymous_3)","decl":{"start":{"line":56,"column":16},"end":{"line":56,"column":19}},"loc":{"start":{"line":56,"column":16},"end":{"line":56,"column":28}}},"1":{"name":"(anonymous_4)","decl":{"start":{"line":56,"column":19},"end":{"line":56,"column":28}},"loc":{"start":{"line":56,"column":16},"end":{"line":56,"column":28}}},"2":{"name":"(anonymous_8)","decl":{"start":{"line":61,"column":15},"end":{"line":61,"column":18}},"loc":{"start":{"line":61,"column":15},"end":{"line":61,"column":null}}},"3":{"name":"(anonymous_9)","decl":{"start":{"line":61,"column":18},"end":{"line":61,"column":null}},"loc":{"start":{"line":61,"column":15},"end":{"line":61,"column":null}}}},"branchMap":{},"s":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0},"f":{"0":0,"1":0,"2":0,"3":0},"b":{}}
-,"/Users/i.kuts/studying_projects/yt-music-sharer/src/server/db/index.ts": {"path":"/Users/i.kuts/studying_projects/yt-music-sharer/src/server/db/index.ts","statementMap":{"0":{"start":{"line":5,"column":16},"end":{"line":11,"column":null}},"1":{"start":{"line":7,"column":4},"end":{"line":10,"column":null}},"2":{"start":{"line":13,"column":18},"end":{"line":15,"column":null}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":6,"column":8},"end":{"line":6,"column":null}},"loc":{"start":{"line":7,"column":4},"end":{"line":10,"column":null}}}},"branchMap":{},"s":{"0":0,"1":0,"2":0},"f":{"0":0},"b":{}}
+{
+  "/Users/i.kuts/studying_projects/yt-music-sharer/svelte.config.js": {
+    "path": "/Users/i.kuts/studying_projects/yt-music-sharer/svelte.config.js",
+    "statementMap": {
+      "0": { "start": { "line": 5, "column": 15 }, "end": { "line": 20, "column": 1 } }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": { "0": 0 },
+    "f": {},
+    "b": {}
+  },
+  "/Users/i.kuts/studying_projects/yt-music-sharer/tailwind.config.ts": {
+    "path": "/Users/i.kuts/studying_projects/yt-music-sharer/tailwind.config.ts",
+    "statementMap": {
+      "0": { "start": { "line": 5, "column": 23 }, "end": { "line": 94, "column": null } }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": { "0": 0 },
+    "f": {},
+    "b": {}
+  },
+  "/Users/i.kuts/studying_projects/yt-music-sharer/src/demo.spec.ts": {
+    "path": "/Users/i.kuts/studying_projects/yt-music-sharer/src/demo.spec.ts",
+    "statementMap": {
+      "0": { "start": { "line": 3, "column": 0 }, "end": { "line": 7, "column": null } },
+      "1": { "start": { "line": 4, "column": 2 }, "end": { "line": 6, "column": null } },
+      "2": { "start": { "line": 5, "column": 4 }, "end": { "line": 5, "column": null } }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": { "start": { "line": 3, "column": 21 }, "end": { "line": 3, "column": 27 } },
+        "loc": { "start": { "line": 3, "column": 27 }, "end": { "line": 7, "column": 1 } }
+      },
+      "1": {
+        "name": "(anonymous_1)",
+        "decl": { "start": { "line": 4, "column": 30 }, "end": { "line": 4, "column": 36 } },
+        "loc": { "start": { "line": 4, "column": 36 }, "end": { "line": 6, "column": 3 } }
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 1, "1": 1, "2": 1 },
+    "f": { "0": 1, "1": 1 },
+    "b": {}
+  },
+  "/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/utils.ts": {
+    "path": "/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/utils.ts",
+    "statementMap": {
+      "0": { "start": { "line": 5, "column": 2 }, "end": { "line": 5, "column": null } }
+    },
+    "fnMap": {
+      "0": {
+        "name": "cn",
+        "decl": { "start": { "line": 4, "column": 16 }, "end": { "line": 4, "column": 22 } },
+        "loc": { "start": { "line": 4, "column": 44 }, "end": { "line": 6, "column": null } }
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 0 },
+    "f": { "0": 0 },
+    "b": {}
+  },
+  "/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/components/ui/button/button.svelte": {
+    "path": "/Users/i.kuts/studying_projects/yt-music-sharer/src/lib/components/ui/button/button.svelte",
+    "statementMap": {
+      "0": { "start": { "line": 45, "column": 11 }, "end": { "line": 45, "column": null } },
+      "1": { "start": { "line": 46, "column": 8 }, "end": { "line": 46, "column": null } },
+      "2": { "start": { "line": 47, "column": 7 }, "end": { "line": 47, "column": null } },
+      "3": { "start": { "line": 48, "column": 8 }, "end": { "line": 48, "column": null } },
+      "4": { "start": { "line": 49, "column": 8 }, "end": { "line": 49, "column": null } },
+      "5": { "start": { "line": 56, "column": 16 }, "end": { "line": 56, "column": 28 } },
+      "6": { "start": { "line": 61, "column": 15 }, "end": { "line": 61, "column": null } }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_3)",
+        "decl": { "start": { "line": 56, "column": 16 }, "end": { "line": 56, "column": 19 } },
+        "loc": { "start": { "line": 56, "column": 16 }, "end": { "line": 56, "column": 28 } }
+      },
+      "1": {
+        "name": "(anonymous_4)",
+        "decl": { "start": { "line": 56, "column": 19 }, "end": { "line": 56, "column": 28 } },
+        "loc": { "start": { "line": 56, "column": 16 }, "end": { "line": 56, "column": 28 } }
+      },
+      "2": {
+        "name": "(anonymous_8)",
+        "decl": { "start": { "line": 61, "column": 15 }, "end": { "line": 61, "column": 18 } },
+        "loc": { "start": { "line": 61, "column": 15 }, "end": { "line": 61, "column": null } }
+      },
+      "3": {
+        "name": "(anonymous_9)",
+        "decl": { "start": { "line": 61, "column": 18 }, "end": { "line": 61, "column": null } },
+        "loc": { "start": { "line": 61, "column": 15 }, "end": { "line": 61, "column": null } }
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0 },
+    "f": { "0": 0, "1": 0, "2": 0, "3": 0 },
+    "b": {}
+  },
+  "/Users/i.kuts/studying_projects/yt-music-sharer/src/server/db/index.ts": {
+    "path": "/Users/i.kuts/studying_projects/yt-music-sharer/src/server/db/index.ts",
+    "statementMap": {
+      "0": { "start": { "line": 5, "column": 16 }, "end": { "line": 11, "column": null } },
+      "1": { "start": { "line": 7, "column": 4 }, "end": { "line": 10, "column": null } },
+      "2": { "start": { "line": 13, "column": 18 }, "end": { "line": 15, "column": null } }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": { "start": { "line": 6, "column": 8 }, "end": { "line": 6, "column": null } },
+        "loc": { "start": { "line": 7, "column": 4 }, "end": { "line": 10, "column": null } }
+      }
+    },
+    "branchMap": {},
+    "s": { "0": 0, "1": 0, "2": 0 },
+    "f": { "0": 0 },
+    "b": {}
+  }
 }
