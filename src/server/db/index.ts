@@ -13,3 +13,5 @@ const dialect = new MysqlDialect({
 export const db = new Kysely<DB>({
   dialect
 });
+
+export type Database = Kysely<DB>;
