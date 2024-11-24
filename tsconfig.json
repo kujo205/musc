@@ -9,12 +9,9 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/server/db/types/db-types.d.ts"
-  ]
+  "include": ["src/**/*.{ts,svelte}", "src/server/db/types/db-types.d.ts"]
   // Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
   // except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
   //

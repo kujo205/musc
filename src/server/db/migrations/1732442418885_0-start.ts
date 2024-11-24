@@ -6,26 +6,54 @@ export async function up(db: Kysely<never>): Promise<void> {
     sql`
         create table users
         (
-            id    int auto_increment
-        primary key,
-            email varchar(256) not null,
-            name  varchar(256) not null,
+            id            varchar(36)  not null primary key,
+            name          text         not null,
+            email         varchar(255) not null unique,
+            email_verified boolean      not null,
             subscription_type enum ('free', 'paid') default 'free' not null,
-            constraint users_pk
-                unique (email)
+            image         text,
+            created_at     datetime     not null,
+            updated_at     datetime     not null
         );
 
         create table user_sessions
         (
-            id         varchar(256)                        not null
-                primary key,
-            user_id    int                                 not null,
-            created_at timestamp default CURRENT_TIMESTAMP not null,
-            updated_at TIMESTAMP                           null on update CURRENT_TIMESTAMP,
-            expires_at timestamp default not null,
-            constraint user_sessions_users_id_fk
-                foreign key (user_id) references users (id)
+            id        varchar(36)  not null primary key,
+            user_id    varchar(36)  not null references user (id),
+            token     varchar(255) not null unique,
+            ip_address text,
+            user_agent text,
+            expires_at datetime     not null,
+            created_at datetime     not null,
+            updated_at datetime     not null,
         );
+
+        create table accounts
+        (
+            id                    varchar(36) not null primary key,
+            account_id             text        not null,
+            provider_id            text        not null,
+            user_id                varchar(36) not null references users(id),
+            access_token           text,
+            refresh_token          text,
+            id_token               text,
+            access_token_expires_at  datetime,
+            refresh_token_expires_at datetime,
+            scope                 text,
+            createdAt             datetime    not null,
+            updatedAt             datetime    not null
+        );
+
+        create table verification_tokens
+        (
+            id         varchar(36) not null primary key,
+            identifier text        not null,
+            value      text        not null,
+            expires_at  datetime    not null,
+            created_at  datetime,
+            updated_at  datetime
+        )
+
     `
   );
 
