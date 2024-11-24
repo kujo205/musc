@@ -41,7 +41,8 @@
     "prettier-plugin-svelte": "^3.2.6",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "prisma": "^5.22.0",
-    "prisma-case-format": "^1.1.0",
+    "prisma-case-format": "1.7.3",
+    "prisma-kysely": "^1.8.0",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
     "tailwind-merge": "^2.5.4",
@@ -53,6 +54,8 @@
     "vitest": "^2.0.4"
   },
   "dependencies": {
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "mysql2": "^3.11.4",
     "vite": "5.4.11"
   },
