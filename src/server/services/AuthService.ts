@@ -2,6 +2,7 @@ import { BaseService } from './BaseService';
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { AuthenticationError } from '$server/errors/AuthenticationError';
+import type { RequestEvent } from '@sveltejs/kit';
 
 export class AuthService extends BaseService {
   constructor(db: TDatabase) {
@@ -62,6 +63,24 @@ export class AuthService extends BaseService {
     }
 
     return { locals };
+  }
+
+  setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date): void {
+    event.cookies.set('session', token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      expires: expiresAt,
+      path: '/'
+    });
+  }
+
+  deleteSessionTokenCookie(event: RequestEvent): void {
+    event.cookies.set('session', '', {
+      httpOnly: true,
+      sameSite: 'lax',
+      maxAge: 0,
+      path: '/'
+    });
   }
 
   async invalidateSession(sessionId: string) {
