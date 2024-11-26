@@ -1,0 +1,3 @@
+[submodule "muse"]
+	path = muse
+	url = https://github.com/kujo205/muse
