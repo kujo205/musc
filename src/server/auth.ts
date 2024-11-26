@@ -1,9 +1,10 @@
 import { betterAuth } from 'better-auth';
 import { createPool } from 'mysql2/promise';
+import { env } from '$env/dynamic/private';
 
 export const auth = betterAuth({
   database: createPool({
-    uri: process.env.DB_URL,
+    uri: env.DB_URL,
     timezone: 'Z'
   }),
   socialProviders: {

@@ -19,13 +19,13 @@ export async function up(db: Kysely<never>): Promise<void> {
         create table user_sessions
         (
             id        varchar(36)  not null primary key,
-            user_id    varchar(36)  not null references user (id),
+            user_id    varchar(36)  not null references users (id),
             token     varchar(255) not null unique,
             ip_address text,
             user_agent text,
             expires_at datetime     not null,
             created_at datetime     not null,
-            updated_at datetime     not null,
+            updated_at datetime     not null
         );
 
         create table accounts
@@ -53,7 +53,6 @@ export async function up(db: Kysely<never>): Promise<void> {
             created_at  datetime,
             updated_at  datetime
         )
-
     `
   );
 
