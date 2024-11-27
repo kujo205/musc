@@ -2,61 +2,69 @@ import { type Kysely, sql } from 'kysely';
 
 export async function up(db: Kysely<never>): Promise<void> {
   await db.executeQuery(
-    // @ts-expect-error: it is fine
     sql`
-        create table users
+        CREATE TABLE Account
         (
-            id            varchar(36)  not null primary key,
-            name          text         not null,
-            email         varchar(255) not null unique,
-            email_verified boolean      not null,
-            subscription_type enum ('free', 'paid') default 'free' not null,
-            image         text,
-            created_at     datetime     not null,
-            updated_at     datetime     not null
-        );
-
-        create table user_sessions
-        (
-            id        varchar(36)  not null primary key,
-            user_id    varchar(36)  not null references users (id),
-            token     varchar(255) not null unique,
-            ip_address text,
-            user_agent text,
-            expires_at datetime     not null,
-            created_at datetime     not null,
-            updated_at datetime     not null
-        );
-
-        create table accounts
-        (
-            id                    varchar(36) not null primary key,
-            account_id             text        not null,
-            provider_id            text        not null,
-            user_id                varchar(36) not null references users(id),
-            access_token           text,
-            refresh_token          text,
-            id_token               text,
-            access_token_expires_at  datetime,
-            refresh_token_expires_at datetime,
-            scope                 text,
-            createdAt             datetime    not null,
-            updatedAt             datetime    not null
-        );
-
-        create table verification_tokens
-        (
-            id         varchar(36) not null primary key,
-            identifier text        not null,
-            value      text        not null,
-            expires_at  datetime    not null,
-            created_at  datetime,
-            updated_at  datetime
-        )
-    `
+            id                 varchar(36)  NOT NULL DEFAULT (uuid()),
+            userId             varchar(36)  NOT NULL,
+            type               varchar(255) NOT NULL,
+            provider           varchar(255) NOT NULL,
+            providerAccountId  varchar(255) NOT NULL,
+            refresh_token      varchar(255)          DEFAULT NULL,
+            access_token       varchar(555)          DEFAULT NULL,
+            expires_at         bigint                DEFAULT NULL,
+            token_type         varchar(255)          DEFAULT NULL,
+            scope              varchar(255)          DEFAULT NULL,
+            id_token           text,
+            session_state      varchar(255)          DEFAULT NULL,
+            oauth_token_secret varchar(255)          DEFAULT NULL,
+            oauth_token        varchar(255)          DEFAULT NULL,
+            PRIMARY KEY (id),
+            KEY Account_userId_index (userId)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `.compile(db)
   );
 
-  // up migration code goes here...
-  // note: up migrations are mandatory. you must implement this function.
-  // For more info, see: https://kysely.dev/docs/migrations
+  await db.executeQuery(
+    sql`
+        CREATE TABLE Session
+        (
+            id           varchar(36)  NOT NULL DEFAULT (uuid()),
+            userId       varchar(36)  NOT NULL,
+            sessionToken varchar(255) NOT NULL,
+            expires      datetime(3) NOT NULL,
+            PRIMARY KEY (id),
+            UNIQUE KEY sessionToken (sessionToken),
+            KEY Session_userId_index (userId)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `.compile(db)
+  );
+
+  await db.executeQuery(
+    sql`
+        CREATE TABLE VerificationToken
+        (
+            identifier varchar(255) NOT NULL,
+            token      varchar(255) NOT NULL,
+            expires    datetime(3) NOT NULL,
+            UNIQUE KEY token (token)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `.compile(db)
+  );
+
+  await db.executeQuery(
+    sql`
+        CREATE TABLE User
+        (
+            id            varchar(36)  NOT NULL DEFAULT (uuid()),
+            name          varchar(255)          DEFAULT NULL,
+            email         varchar(255) NOT NULL,
+            emailVerified datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
+            image         varchar(255)          DEFAULT NULL,
+            subscription_type  enum('free','paid')  DEFAULT 'free',
+            PRIMARY KEY (id),
+            UNIQUE KEY email (email)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `.compile(db)
+  );
 }

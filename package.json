@@ -54,9 +54,8 @@
     "vitest": "^2.0.4"
   },
   "dependencies": {
-    "@oslojs/crypto": "^1.0.1",
-    "@oslojs/encoding": "^1.1.0",
-    "better-auth": "^1.0.2",
+    "@auth/kysely-adapter": "^1.7.4",
+    "@auth/sveltekit": "^1.7.4",
     "mysql2": "^3.11.4",
     "vite": "5.4.11"
   },

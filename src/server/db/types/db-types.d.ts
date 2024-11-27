@@ -5,22 +5,56 @@ export type Generated<T> =
     : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-import type { UsersSubscriptionType } from './enums';
+import type { UserSubscriptionType } from './enums';
 
-export type Users = {
-  id: Generated<number>;
-  email: string;
-  name: string;
-  subscription_type: Generated<UsersSubscriptionType>;
+export type Account = {
+  id: Generated<string>;
+  userId: string;
+  type: string;
+  provider: string;
+  providerAccountId: string;
+  refresh_token: string | null;
+  access_token: string | null;
+  expires_at: number | null;
+  token_type: string | null;
+  scope: string | null;
+  id_token: string | null;
+  session_state: string | null;
+  oauth_token_secret: string | null;
+  oauth_token: string | null;
 };
-export type UserSessions = {
+export type KyselyMigration = {
+  name: string;
+  timestamp: string;
+};
+export type KyselyMigrationLock = {
   id: string;
-  user_id: number;
-  created_at: Generated<Timestamp>;
-  updated_at: Timestamp | null;
-  expires_at: Generated<Timestamp>;
+  is_locked: Generated<number>;
+};
+export type Session = {
+  id: Generated<string>;
+  userId: string;
+  sessionToken: string;
+  expires: Timestamp;
+};
+export type User = {
+  id: Generated<string>;
+  name: string | null;
+  email: string;
+  emailVerified: Generated<Timestamp | null>;
+  image: string | null;
+  subscription_type: Generated<UserSubscriptionType | null>;
+};
+export type VerificationToken = {
+  identifier: string;
+  token: string;
+  expires: Timestamp;
 };
 export type DB = {
-  user_sessions: UserSessions;
-  users: Users;
+  Account: Account;
+  kysely_migration: KyselyMigration;
+  kysely_migration_lock: KyselyMigrationLock;
+  Session: Session;
+  User: User;
+  VerificationToken: VerificationToken;
 };
