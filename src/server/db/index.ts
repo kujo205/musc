@@ -1,11 +1,12 @@
-import { type DB } from './types/db-types'; // this is the Database interface we defined earlier
+import type { DB } from './types/db-types';
 import { createPool } from 'mysql2'; // do not use 'mysql2/promises'!
 import { Kysely, MysqlDialect } from 'kysely';
+import { env } from '$env/dynamic/private';
 
 const dialect = new MysqlDialect({
   pool: async () =>
     createPool({
-      uri: process.env.DB_URL,
+      uri: env.DB_URL,
       timezone: 'Z'
     })
 });

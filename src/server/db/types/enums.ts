@@ -1,6 +1,5 @@
-export const UsersSubscriptionType = {
+export const UserSubscriptionType = {
   free: 'free',
   paid: 'paid'
 } as const;
-export type UsersSubscriptionType =
-  (typeof UsersSubscriptionType)[keyof typeof UsersSubscriptionType];
+export type UserSubscriptionType = (typeof UserSubscriptionType)[keyof typeof UserSubscriptionType];

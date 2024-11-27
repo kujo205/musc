@@ -1,9 +1,9 @@
 generator kysely {
   provider            = "prisma-kysely"
   output              = "."
+  fileName            = "db-types.d.ts"
   booleanTypeOverride = "boolean"
   decimalTypeOverride = "number"
-  fileName            = "db-types.d.ts"
   enumFileName        = "enums.ts"
 }
 
@@ -12,31 +12,66 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model Users {
-  id               Int                   @id @default(autoincrement())
-  email            String                @unique(map: "users_pk") @db.VarChar(256)
-  name             String                @db.VarChar(256)
-  subscriptionType UsersSubscriptionType @default(free) @map("subscription_type")
-  userSessions     UserSessions[]
+model Account {
+  id                String  @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  userId            String  @db.VarChar(36)
+  type              String  @db.VarChar(255)
+  provider          String  @db.VarChar(255)
+  providerAccountId String  @db.VarChar(255)
+  refreshToken      String? @map("refresh_token") @db.VarChar(255)
+  accessToken       String? @map("access_token") @db.VarChar(555)
+  expiresAt         BigInt? @map("expires_at")
+  tokenType         String? @map("token_type") @db.VarChar(255)
+  scope             String? @db.VarChar(255)
+  idToken           String? @map("id_token") @db.Text
+  sessionState      String? @map("session_state") @db.VarChar(255)
+  oauthTokenSecret  String? @map("oauth_token_secret") @db.VarChar(255)
+  oauthToken        String? @map("oauth_token") @db.VarChar(255)
 
-  @@map("users")
+  @@index([userId], map: "Account_userId_index")
 }
 
-model UserSessions {
-  id        String    @id @db.VarChar(256)
-  userId    Int       @map("user_id")
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(0)
-  updatedAt DateTime? @map("updated_at") @db.Timestamp(0)
-  expiresAt DateTime  @default(dbgenerated("(now() + interval 30 day)")) @map("expires_at") @db.Timestamp(0)
-  users     Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_sessions_users_id_fk")
+model Session {
+  id           String   @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  userId       String   @db.VarChar(36)
+  sessionToken String   @unique(map: "sessionToken") @db.VarChar(255)
+  expires      DateTime
 
-  @@index([userId], map: "user_sessions_users_id_fk")
-  @@map("user_sessions")
+  @@index([userId], map: "Session_userId_index")
 }
 
-enum UsersSubscriptionType {
+model User {
+  id               String                @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  name             String?               @db.VarChar(255)
+  email            String                @unique(map: "email") @db.VarChar(255)
+  emailVerified    DateTime?             @default(now())
+  image            String?               @db.VarChar(255)
+  subscriptionType UserSubscriptionType? @default(free) @map("subscription_type")
+}
+
+model VerificationToken {
+  identifier String   @db.VarChar(255)
+  token      String   @unique(map: "token") @db.VarChar(255)
+  expires    DateTime
+}
+
+model KyselyMigration {
+  name      String @id @db.VarChar(255)
+  timestamp String @db.VarChar(255)
+
+  @@map("kysely_migration")
+}
+
+model KyselyMigrationLock {
+  id       String @id @db.VarChar(255)
+  isLocked Int    @default(0) @map("is_locked")
+
+  @@map("kysely_migration_lock")
+}
+
+enum UserSubscriptionType {
   free
   paid
 
-  @@map("users_subscription_type")
+  @@map("User_subscription_type")
 }

@@ -1,7 +1,20 @@
-import { auth } from '$server/auth'; // path to your auth file
-import { svelteKitHandler } from 'better-auth/svelte-kit';
-import type { Handle } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
+import { SvelteKitAuth } from '@auth/sveltekit';
+import { KyselyAdapter } from '@auth/kysely-adapter';
+import Google from '@auth/core/providers/google';
 
-export const hook0Auth: Handle = async ({ event, resolve }) => {
-  return svelteKitHandler({ event, resolve, auth });
-};
+import { db } from '$db';
+
+export const { handle: h0Auth } = SvelteKitAuth({
+  // @ts-expect-error our db schema should be fully compatible
+  adapter: KyselyAdapter(db),
+  trustHost: true,
+  debug: true,
+  providers: [
+    Google({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET
+    })
+  ],
+  secret: env.AUTH_SECRET
+});
