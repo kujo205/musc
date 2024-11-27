@@ -1,10 +1,10 @@
 generator kysely {
   provider            = "prisma-kysely"
   output              = "."
-  decimalTypeOverride = "number"
   booleanTypeOverride = "boolean"
-  enumFileName        = "enums.ts"
+  decimalTypeOverride = "number"
   fileName            = "db-types.d.ts"
+  enumFileName        = "enums.ts"
 }
 
 datasource db {
@@ -13,9 +13,30 @@ datasource db {
 }
 
 model Users {
-  id    Int    @id @default(autoincrement())
-  email String @unique(map: "users_pk") @db.VarChar(256)
-  name  String @db.VarChar(256)
+  id               Int                   @id @default(autoincrement())
+  email            String                @unique(map: "users_pk") @db.VarChar(256)
+  name             String                @db.VarChar(256)
+  subscriptionType UsersSubscriptionType @default(free) @map("subscription_type")
+  userSessions     UserSessions[]
 
   @@map("users")
+}
+
+model UserSessions {
+  id        String    @id @db.VarChar(256)
+  userId    Int       @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(0)
+  expiresAt DateTime  @default(dbgenerated("(now() + interval 30 day)")) @map("expires_at") @db.Timestamp(0)
+  users     Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_sessions_users_id_fk")
+
+  @@index([userId], map: "user_sessions_users_id_fk")
+  @@map("user_sessions")
+}
+
+enum UsersSubscriptionType {
+  free
+  paid
+
+  @@map("users_subscription_type")
 }

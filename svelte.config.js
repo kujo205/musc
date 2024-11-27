@@ -13,6 +13,7 @@ const config = {
     // See https://svelte.dev/docs/kit/adapters for more information about adapters.
     adapter: adapter(),
     alias: {
+      $server: './src/server/*',
       $routes: './src/routes/*',
       $db: './src/server/db/*'
     }
