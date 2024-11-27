@@ -14,7 +14,7 @@ export const auth = betterAuth({
     }
   },
 
-  // rewrite table names according to my database style
+  // NOTE: table names according to my database style
   user: {
     modelName: 'users',
     fields: {
