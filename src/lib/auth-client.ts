@@ -4,8 +4,8 @@ const client = createAuthClient();
 
 export const signIn = async () => {
   const data = await client.signIn.social({
-    provider: 'google',
-    callbackURL: '/'
+    provider: 'google'
+    // callbackURL: '/'
   });
 
   console.log('data', data);
