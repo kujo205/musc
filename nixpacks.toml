@@ -1,0 +1,4 @@
+providers = ["...", "python"]
+
+[phases.setup]
+pythonPkgs = ["ytmusicapi"] # Install Python packages
