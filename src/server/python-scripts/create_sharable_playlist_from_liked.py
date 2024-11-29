@@ -17,9 +17,9 @@ def create_sharable_playlist(cookie, playlist_name='Liked Music', playlist_descr
     headers_dict = get_raw_headers(cookie)
 
     ytmusic = ytmusicapi.YTMusic(auth=headers_dict)
-    ytmusic.create_playlist(playlist_name, playlist_description, 'PUBLIC',source_playlist='LM')
+    id = ytmusic.create_playlist(playlist_name, playlist_description, 'PUBLIC',source_playlist='LM')
 
-    print(f"Playlist '{playlist_name}' created successfully.")
+    print(id)
 
 
 if __name__ == "__main__":
