@@ -25,3 +25,4 @@ vite.config.ts.timestamp-*
 .eslintcache
 coverage**
 test-results**
+src/server/python-scripts/__pycache__/**
