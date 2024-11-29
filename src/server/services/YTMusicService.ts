@@ -1,9 +1,9 @@
 import { BaseService } from './BaseService';
 import { spawn } from 'node:child_process';
-import { resolve as resolveNode, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { YtMusicError } from '$server/errors/YtMusicError';
 
 import { db } from '$db';
+import { constructAbsoluteFileName } from '$server/heleprs/constructAbsoluteFileName';
 
 class YTMusicService extends BaseService {
   constructor(db: TDatabase) {
@@ -22,12 +22,9 @@ class YTMusicService extends BaseService {
     playlistDescription: string
   ) {
     return new Promise((resolve, reject) => {
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = dirname(__filename);
-
-      const pathToScript = resolveNode(
-        __dirname,
-        '../python-scripts/create_sharable_playlist_from_liked.py'
+      const pathToScript = constructAbsoluteFileName(
+        '../python-scripts/create_sharable_playlist_from_liked.py',
+        import.meta.url
       );
 
       const args = [pathToScript, cookie, playlistName, playlistDescription];
@@ -49,7 +46,7 @@ class YTMusicService extends BaseService {
         if (code === 0) {
           resolve(output);
         } else {
-          reject(new Error(errorOutput));
+          reject(new YtMusicError(`Error working with youtube music API:${errorOutput}`));
         }
       });
     });
