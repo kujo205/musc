@@ -21,7 +21,7 @@ class YTMusicService extends BaseService {
     playlistName: string,
     playlistDescription: string
   ) {
-    return new Promise((resolve, reject) => {
+    return new Promise<string | undefined>((resolve, reject) => {
       const pathToScript = constructAbsoluteFileName(
         '../python-scripts/create_sharable_playlist_from_liked.py',
         import.meta.url
@@ -44,9 +44,9 @@ class YTMusicService extends BaseService {
 
       child.on('close', (code) => {
         if (code === 0) {
-          resolve(output);
+          resolve(output.trim());
         } else {
-          reject(new YtMusicError(`Error working with youtube music API:${errorOutput}`));
+          reject(new YtMusicError(`Error working with youtube music API: \`${errorOutput}\``));
         }
       });
     });
