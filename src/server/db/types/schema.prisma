@@ -1,10 +1,10 @@
 generator kysely {
   provider            = "prisma-kysely"
   output              = "."
-  fileName            = "db-types.d.ts"
-  booleanTypeOverride = "boolean"
-  decimalTypeOverride = "number"
   enumFileName        = "enums.ts"
+  decimalTypeOverride = "number"
+  booleanTypeOverride = "boolean"
+  fileName            = "db-types.d.ts"
 }
 
 datasource db {
@@ -47,6 +47,9 @@ model User {
   emailVerified    DateTime?             @default(now())
   image            String?               @db.VarChar(255)
   subscriptionType UserSubscriptionType? @default(free) @map("subscription_type")
+  ytmusicCookie    String?               @map("ytmusic_cookie") @db.VarChar(10000)
+  playlistSyncs    PlaylistSyncs[]
+  playlists        Playlists[]
 }
 
 model VerificationToken {
@@ -67,6 +70,33 @@ model KyselyMigrationLock {
   isLocked Int    @default(0) @map("is_locked")
 
   @@map("kysely_migration_lock")
+}
+
+model PlaylistSyncs {
+  id         String     @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  playlistId String?    @map("playlist_id") @db.VarChar(36)
+  userId     String?    @map("user_id") @db.VarChar(36)
+  user       User?      @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "playlist_syncs_User_id_fk")
+  playlists  Playlists? @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "playlist_syncs_playlists_id_fk")
+
+  @@index([playlistId], map: "playlist_syncs_playlists_id_fk")
+  @@map("playlist_syncs")
+}
+
+model Playlists {
+  id                        String          @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  name                      String?         @db.Text
+  description               String?         @db.Text
+  userId                    String          @map("user_id") @db.VarChar(36)
+  isPublicOnMuscMarketplace Boolean         @default(false) @map("is_public_on_musc_marketplace")
+  link                      String          @db.VarChar(256)
+  createdAt                 DateTime        @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt                 DateTime?       @map("updated_at") @db.Timestamp(0)
+  playlistSyncs             PlaylistSyncs[]
+  user                      User            @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "playlists_User_id_fk")
+
+  @@index([userId], map: "playlists_User_id_fk")
+  @@map("playlists")
 }
 
 enum UserSubscriptionType {

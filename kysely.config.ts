@@ -1,8 +1,17 @@
 import { defineConfig } from 'kysely-ctl';
-import { db } from './src/server/db';
+import { createPool } from 'mysql2';
+import { Kysely, MysqlDialect } from 'kysely';
 
 export default defineConfig({
-  kysely: db,
+  kysely: new Kysely({
+    dialect: new MysqlDialect({
+      pool: async () =>
+        createPool({
+          uri: process.env.DB_URL,
+          timezone: 'Z'
+        })
+    })
+  }),
   migrations: {
     migrationFolder: './src/server/db/migrations'
   }
