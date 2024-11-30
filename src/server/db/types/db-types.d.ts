@@ -31,6 +31,21 @@ export type KyselyMigrationLock = {
   id: string;
   is_locked: Generated<number>;
 };
+export type Playlists = {
+  id: Generated<string>;
+  name: string | null;
+  description: string | null;
+  user_id: string;
+  is_public_on_musc_marketplace: Generated<boolean>;
+  link: string;
+  created_at: Generated<Timestamp>;
+  updated_at: Timestamp | null;
+};
+export type PlaylistSyncs = {
+  id: Generated<string>;
+  playlist_id: string | null;
+  user_id: string | null;
+};
 export type Session = {
   id: Generated<string>;
   userId: string;
@@ -44,6 +59,7 @@ export type User = {
   emailVerified: Generated<Timestamp | null>;
   image: string | null;
   subscription_type: Generated<UserSubscriptionType | null>;
+  ytmusic_cookie: string | null;
 };
 export type VerificationToken = {
   identifier: string;
@@ -54,6 +70,8 @@ export type DB = {
   Account: Account;
   kysely_migration: KyselyMigration;
   kysely_migration_lock: KyselyMigrationLock;
+  playlist_syncs: PlaylistSyncs;
+  playlists: Playlists;
   Session: Session;
   User: User;
   VerificationToken: VerificationToken;
