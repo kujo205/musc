@@ -43,6 +43,7 @@
     "prisma": "^5.22.0",
     "prisma-case-format": "1.7.3",
     "prisma-kysely": "^1.8.0",
+    "sass-embedded": "^1.82.0",
     "svelte": "5.2.8",
     "svelte-check": "^4.0.0",
     "tailwind-merge": "^2.5.4",
@@ -56,6 +57,8 @@
   "dependencies": {
     "@auth/kysely-adapter": "^1.7.4",
     "@auth/sveltekit": "^1.7.4",
+    "lucide-svelte": "^0.468.0",
+    "mode-watcher": "^0.5.0",
     "mysql2": "^3.11.4",
     "vite": "5.4.11"
   },
