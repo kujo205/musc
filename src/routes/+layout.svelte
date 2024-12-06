@@ -28,7 +28,9 @@
 </div>
 
 {#snippet header()}
-  <header class="sticky top-0 flex justify-between border-b-2 py-3">
+  <header
+    class="sticky top-0 flex justify-between border-b-2 bg-background bg-opacity-60 py-3 backdrop-blur-sm"
+  >
     <Logo />
 
     <div class="flex gap-2">
