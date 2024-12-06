@@ -74,14 +74,13 @@ export class YTMusicService extends BaseService {
    * {
    *  cookie:string,
    *  target_playlist_id:string,
-   *  source_playlist_id:string
    * }[]
    * @returns {void}
    * */
   async syncExportedPlaylistsWithUpdatesFromLiked(filePath: string) {
     const resp = await this.ytMusicApiBase<void>(
       '../python-scripts/sync_some_playlists_with_liked.py',
-      [filePath],
+      ['--input_file', filePath],
       'error syncing exported playlist with updates from liked'
     );
 

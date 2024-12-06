@@ -21,12 +21,28 @@ def add_playlist_to_existing_playlist_one(cookie, target_playlist_id, source_pla
     :return: None
     """
 
+    print('enter add_playlist_to_existing_playlist_one')
+
     headers_dict = get_raw_headers(cookie)
 
-    ytmusic = ytmusicapi.YTMusic(auth=headers_dict)
-    response = ytmusic.edit_playlist(target_playlist_id, addPlaylistId=source_playlist_id, addToTop=True)
 
-    print(response)
+    ytmusic = ytmusicapi.YTMusic(auth=headers_dict)
+
+    # print('enter get_playlist_data')
+    #
+    # data = ytmusic.get_playlist(source_playlist_id)
+    #
+    # video_ids = [track['videoId'] for track in data['tracks']]
+    #
+    # print('video_ids', video_ids)
+    #
+    # result = ytmusic.add_playlist_items(playlistId=target_playlist_id, videoIds=video_ids)
+
+    result = ytmusic.edit_playlist(playlistId=target_playlist_id, addPlaylistId=source_playlist_id)
+
+    print('exit add_playlist_to_existing_playlist_one')
+
+    return result
 
 def load_input_file(file_path):
     """
@@ -35,30 +51,35 @@ def load_input_file(file_path):
     :param file_path: str
       The path to the input file.
     """
-
     with open(file_path, 'r') as file:
         data = json.load(file)
+        print(len(data))
     return data
 
 async def main():
-    tasks = []
+    print('Starting...')
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('input_file', type=str)
+    parser.add_argument('--input_file', type=str)
 
     args = parser.parse_args()
 
     data = load_input_file(args.input_file)
 
-    for item in data:
-        tasks.append(add_playlist_to_existing_playlist_one(item['cookie'], item['target_playlist_id'], 'LM'))
 
-    results = await asyncio.gather(*tasks)
+    tasks = [
+        add_playlist_to_existing_playlist_one(
+            item['cookie'],
+            item['target_playlist_id']
+        )
+        for item in data
+    ]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
 
     for result in results:
         print(result)
 
-
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
+    print('Starting...')

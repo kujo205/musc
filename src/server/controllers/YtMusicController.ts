@@ -33,6 +33,7 @@ export class YtMusicController {
 
     await this.ytMusicService.syncExportedPlaylistsWithUpdatesFromLiked(absoluteFilePath);
 
+    console.info(`[synced music for ${data.length} playlists]`);
     // TODO: insert meta data into playlists syncs
   }
 
