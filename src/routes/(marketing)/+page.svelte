@@ -104,12 +104,6 @@
 
   <div class="flex flex-1 justify-center gap-16 max-md:flex-col">
     <PlanCard
-      name="Starter"
-      description="Designed for those willing to try out the service"
-      price="Free"
-      features={['Up to 3 free music exports', 'Browse Community Libraries']}
-    />
-    <PlanCard
       name="Basic"
       description="Basic plan, lets you keep your exported music albums synced, you pay only once"
       price="10$"
@@ -125,6 +119,12 @@
         <Badge variant="indigo">Most Popular</Badge>
       {/snippet}
     </PlanCard>
+    <PlanCard
+      name="Starter"
+      description="Designed for those willing to try out the service"
+      price="Free"
+      features={['Up to 3 free music exports', 'Browse Community Libraries']}
+    />
   </div>
 </section>
 
