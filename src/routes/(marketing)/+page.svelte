@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Button } from '$comp/ui/button';
-  // import { signIn, signOut } from '@auth/sveltekit/client';
   import PlanCard from '$comp/custom/PlanCard.svelte';
   // import type { PageData } from './$types';
   import {
@@ -43,13 +42,6 @@
       description: 'Browse an extensive library of public playlists'
     }
   ];
-
-  // function signWithGoogle() {
-  //   signIn('google');
-  // }
-  // function logOut() {
-  //   signOut();
-  // }
 </script>
 
 <section class="mt-16 flex justify-center gap-4 max-md:flex-col">
@@ -104,6 +96,7 @@
 
   <div class="flex flex-1 justify-center gap-16 max-md:flex-col">
     <PlanCard
+      planCookieValue="basic"
       name="Basic"
       description="Basic plan, lets you keep your exported music albums synced, you pay only once"
       price="10$"
@@ -120,6 +113,7 @@
       {/snippet}
     </PlanCard>
     <PlanCard
+      planCookieValue="free"
       name="Starter"
       description="Designed for those willing to try out the service"
       price="Free"
@@ -127,12 +121,6 @@
     />
   </div>
 </section>
-
-<!--<Button onclick={signWithGoogle}>Sign in</Button>-->
-<!--<Button onclick={logOut}>Sign out</Button>-->
-<!--<pre>-->
-<!--  {JSON.stringify(data, null, 2)}-->
-<!--</pre>-->
 
 {#snippet featureCard({ icon, title, description })}
   <div class="flex gap-2 p-4">

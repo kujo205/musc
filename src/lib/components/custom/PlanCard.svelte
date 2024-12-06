@@ -1,7 +1,10 @@
 <script module lang="ts">
   import type { Snippet } from 'svelte';
+  import { signIn } from '@auth/sveltekit/client';
+  import { env } from '$env/dynamic/public';
 
   interface PricingCardProps {
+    planCookieValue: 'free' | 'basic';
     name: string;
     description: string;
     price: string;
@@ -14,14 +17,26 @@
 <script>
   import { CheckCircleIcon } from 'lucide-svelte';
   import { Button } from '$comp/ui/button';
+
   const {
     name,
     isOutlined = false,
     description,
     price,
     features,
-    tagSnippet
+    tagSnippet,
+    planCookieValue = 'free'
   }: PricingCardProps = $props();
+
+  function signWithGoogle() {
+    let callbackUrl = '/dashboard';
+
+    if (planCookieValue === 'basic') {
+      callbackUrl = '/checkout';
+    }
+
+    signIn('google', { callbackUrl });
+  }
 </script>
 
 <div
@@ -59,5 +74,9 @@
     </ul>
   </div>
 
-  <Button>Select Plan</Button>
+  <Button onclick={signWithGoogle}>Select Plan</Button>
 </div>
+<!--<Button onclick={logOut}>Sign out</Button>-->
+<!--<pre>-->
+<!--  {JSON.stringify(data, null, 2)}-->
+<!--</pre>-->
