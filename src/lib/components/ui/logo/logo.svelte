@@ -1,5 +1,4 @@
 <script lang="ts" module>
-  import { AudioLines } from 'lucide-svelte';
 </script>
 
 <a href="/" class="group inline-flex items-center gap-2 text-foreground">

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Button } from '$comp/ui/button';
-  import { signIn, signOut } from '@auth/sveltekit/client';
-  import type { PageData } from './$types';
+  // import { signIn, signOut } from '@auth/sveltekit/client';
+  import PlanCard from '$comp/custom/PlanCard.svelte';
+  // import type { PageData } from './$types';
   import {
     Github,
     ArrowRight,
@@ -13,8 +14,6 @@
     UsersRound
   } from 'lucide-svelte';
   import { Badge } from '$comp/ui/badge';
-
-  let data: PageData = $props();
 
   const features = [
     {
@@ -45,12 +44,12 @@
     }
   ];
 
-  function signWithGoogle() {
-    signIn('google');
-  }
-  function logOut() {
-    signOut();
-  }
+  // function signWithGoogle() {
+  //   signIn('google');
+  // }
+  // function logOut() {
+  //   signOut();
+  // }
 </script>
 
 <section class="mt-16 flex justify-center gap-4 max-md:flex-col">
@@ -85,25 +84,58 @@
 
 <section class="mx-auto mt-24 flex max-w-screen-lg flex-col justify-center gap-4 max-md:mt-12">
   <h1 class="text-3xl font-semibold">Features</h1>
-  <div class="flex flex-wrap justify-start gap-16">
+  <div class="flex flex-wrap justify-center gap-16">
     {@render funnyMusicFaceSvg({ className: 'max-w-96  max-h-96' })}
   </div>
-  <div class="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
+  <div class="grid grid-cols-3 gap-2 max-md:grid-cols-2 max-sm:grid-cols-1">
     {#each features as feat}
       {@render featureCard({ ...feat })}
     {/each}
   </div>
 </section>
 
-<Button onclick={signWithGoogle}>Sign in</Button>
-<Button onclick={logOut}>Sign out</Button>
-<pre>
-  {JSON.stringify(data, null, 2)}
-</pre>
+<section
+  class="mx-auto mt-24 flex max-w-screen-lg flex-col justify-center gap-4 max-md:mt-12"
+></section>
+
+<section id="section-pricing" class="mx-auto mt-16 max-w-screen-lg flex-col max-md:mt-12">
+  <h1 class="mb-8 text-3xl font-semibold">Pricing</h1>
+
+  <div class="flex flex-1 justify-center gap-16 max-md:flex-col">
+    <PlanCard
+      name="Starter"
+      description="Designed for those willing to try out the service"
+      price="Free"
+      features={['Up to 3 free music exports', 'Browse Community Libraries']}
+    />
+    <PlanCard
+      name="Basic"
+      description="Basic plan, lets you keep your exported music albums synced, you pay only once"
+      price="10$"
+      features={[
+        'Everything in Free',
+        'Unlimited music exports',
+        'Exported music album syncing',
+        'Advanced album management tools'
+      ]}
+      isOutlined={true}
+    >
+      {#snippet tagSnippet()}
+        <Badge variant="indigo">Most Popular</Badge>
+      {/snippet}
+    </PlanCard>
+  </div>
+</section>
+
+<!--<Button onclick={signWithGoogle}>Sign in</Button>-->
+<!--<Button onclick={logOut}>Sign out</Button>-->
+<!--<pre>-->
+<!--  {JSON.stringify(data, null, 2)}-->
+<!--</pre>-->
 
 {#snippet featureCard({ icon, title, description })}
-  <div class="flex gap-4 p-4">
-    <svelte:component this={icon} class="size-9 rounded-full bg-secondary p-2"></svelte:component>
+  <div class="flex gap-2 p-4">
+    <svelte:component this={icon} class="size-9 rounded-full bg-secondary !p-2"></svelte:component>
     <div class="flex flex-col">
       <h2 class="text-xl font-semibold">{title}</h2>
       <p class=" text-slate-400">{description}</p>
