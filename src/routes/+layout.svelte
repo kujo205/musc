@@ -9,7 +9,7 @@
 
   let { children } = $props();
 
-  const navItems = [{ label: 'Try it!', href: '/dashboard' }];
+  const navItems = [{ label: 'Try it!', href: '/#section-pricing' }];
 </script>
 
 <svelte:head>
@@ -22,9 +22,11 @@
 <div class="mx-4 md:mx-16">
   {@render header()}
 
-  <main class="my-4">
+  <main class="mb-24 mt-8">
     {@render children()}
   </main>
+
+  {@render footer()}
 </div>
 
 {#snippet header()}
@@ -48,4 +50,18 @@
       <ChangeModeIcon />
     </div>
   </header>
+{/snippet}
+
+{#snippet footer()}
+  <footer class="flex w-full justify-between py-8">
+    <span class="inline-flex items-center justify-center gap-2">
+      <Logo />
+      <span> by SpaceCrammers </span>
+    </span>
+    <span>
+      Having trouble?
+      <Button target="_blank" variant="link" href="mailto:m.krivokhata@gmail.com">Contact us</Button
+      >
+    </span>
+  </footer>
 {/snippet}
