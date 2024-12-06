@@ -4,8 +4,9 @@ import { ytMusicController } from '$server/controllers/YtMusicController';
 export const GET: RequestHandler = async () => {
   console.log('[getting ping]');
 
-  const link = await ytMusicController.createSharablePlaylistFromLiked('kuc8301@gmail.com');
+  // await ytMusicController.createSharablePlaylistFromLiked('kuc8301@gmail.com', 'Test Playlist');
+  await ytMusicController.syncMusic();
 
   console.log('[returning pong]');
-  return text('pong ' + link);
+  return text('pong');
 };

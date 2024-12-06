@@ -13,7 +13,6 @@ def create_sharable_playlist(cookie, playlist_name='Liked Music', playlist_descr
     :return: None
     """
 
-
     headers_dict = get_raw_headers(cookie)
 
     ytmusic = ytmusicapi.YTMusic(auth=headers_dict)
