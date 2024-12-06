@@ -4,8 +4,16 @@
   import type { PageData } from './$types';
   import { Github, ArrowRight, Megaphone } from 'lucide-svelte';
   import { Badge } from '$comp/ui/badge';
+  import * as Card from '$comp/ui/card/index.js';
 
   let data: PageData = $props();
+
+  const features = [
+    {
+      title: 'Public Music',
+      description: 'Keep your favorite music public'
+    }
+  ];
 
   function signWithGoogle() {
     signIn('google');
@@ -21,7 +29,6 @@
       <Megaphone size={12} />
       We are in public beta!</Badge
     >
-
     <h1
       class="bg-gradient-to-r from-indigo-400 to-black bg-clip-text text-7xl font-semibold text-transparent"
     >
@@ -50,13 +57,25 @@
   <h1 class="text-3xl font-semibold">Features</h1>
 </section>
 
-<h1>Welcome to Musc</h1>
-
 <Button onclick={signWithGoogle}>Sign in</Button>
 <Button onclick={logOut}>Sign out</Button>
 <pre>
   {JSON.stringify(data, null, 2)}
 </pre>
+
+{#snippet featureCard()}
+  <Card.Root class="w-[350px]">
+    <Card.Header>
+      <Card.Title>Create project</Card.Title>
+      <Card.Description>Deploy your new project in one-click.</Card.Description>
+    </Card.Header>
+    <Card.Content></Card.Content>
+    <Card.Footer class="flex justify-between">
+      <Button variant="outline">Cancel</Button>
+      <Button>Deploy</Button>
+    </Card.Footer>
+  </Card.Root>
+{/snippet}
 
 {#snippet personWithMobileSvg({ className })}
   <svg
