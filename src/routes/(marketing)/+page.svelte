@@ -15,7 +15,7 @@
   }
 </script>
 
-<section class="mt-16 flex justify-center gap-4">
+<section class="mt-16 flex justify-center gap-4 max-md:flex-col">
   <div class="flex flex-col justify-center gap-4">
     <Badge variant="secondary" class="gap-2 self-start">
       <Megaphone size={12} />
@@ -42,8 +42,12 @@
     </div>
   </div>
   <div>
-    {@render personWithMobileSvg({ className: 'max-w-96 max-h-96' })}
+    {@render personWithMobileSvg({ className: 'max-md:max-w-64 max-w-96 max-h-96 ' })}
   </div>
+</section>
+
+<section>
+  <h1 class="text-3xl font-semibold">Features</h1>
 </section>
 
 <h1>Welcome to Musc</h1>
