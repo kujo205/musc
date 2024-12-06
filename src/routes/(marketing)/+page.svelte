@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button';
+  import { Button } from '$comp/ui/button';
   import { signIn, signOut } from '@auth/sveltekit/client';
-  import type { PageData } from './$types';
+  import type { PageData } from '../../../.svelte-kit/types/src/routes';
 
   let data: PageData = $props();
 
