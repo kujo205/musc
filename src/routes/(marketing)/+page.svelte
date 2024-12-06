@@ -92,7 +92,7 @@
 
 <section id="section-pricing" class="mx-auto mt-16 max-w-screen-lg flex-col max-md:mt-12">
   <h1 class="text-3xl font-semibold">Pricing</h1>
-  {@render creditCardSvg({ className: 'max-w-96 max-h-96 mx-auto' })}
+  {@render creditCardSvg({ className: 'max-w-96 max-md:max-w-80 max-h-96 mx-auto' })}
 
   <div class="flex flex-1 justify-center gap-16 max-md:flex-col">
     <PlanCard
