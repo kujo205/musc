@@ -5,6 +5,7 @@
   import ChangeModeIcon from '$comp/custom/ChangeModeIcon.svelte';
   import { Github, LogOut, Menu } from 'lucide-svelte';
   import { buttonVariants } from '$lib/components/ui/button';
+  import { signOut, signIn } from '@auth/sveltekit/client';
 
   import { ModeWatcher } from 'mode-watcher';
   import { Button } from '$comp/ui/button';
@@ -65,16 +66,21 @@
 {#snippet navigation({ className = '' })}
   <div class={`flex gap-2 ${className}`}>
     {#if data.authorized}
-      <Button variant="ghost"><LogOut /></Button>
-      <Button class="pr-1" variant="link" href="/dashboard">Dashboard</Button>
+      <Button variant="ghost" onclick={signOut}><LogOut /></Button>
+      <Button variant="link" href="/dashboard">Dashboard</Button>
     {:else}
       <Button variant="link" href="/#section-pricing">Try it!</Button>
+      <Button
+        variant="link"
+        onclick={() => signIn('google', { callbackUrl: '/dashboard' })}
+        href="/#section-pricing">Login</Button
+      >
     {/if}
+    <ChangeModeIcon />
     <Button variant="default" href="https://github.com/kujo205/musc" target="_blank">
       <Github size="20" />
       Github
     </Button>
-    <ChangeModeIcon />
   </div>
 {/snippet}
 

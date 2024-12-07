@@ -1,7 +1,6 @@
 <script module lang="ts">
   import type { Snippet } from 'svelte';
   import { signIn } from '@auth/sveltekit/client';
-  import { env } from '$env/dynamic/public';
 
   interface PricingCardProps {
     planCookieValue: 'free' | 'basic';

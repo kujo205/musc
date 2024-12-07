@@ -51,7 +51,7 @@
       We are in public beta!</Badge
     >
     <h1
-      class="bg-gradient-to-r from-indigo-400 to-black bg-clip-text text-7xl font-semibold text-transparent"
+      class="w-fit bg-gradient-to-r from-indigo-400 to-indigo-950 bg-clip-text text-7xl font-semibold text-transparent"
     >
       Musc
     </h1>
