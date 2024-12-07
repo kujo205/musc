@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Button } from '$comp/ui/button';
-  // import { signIn, signOut } from '@auth/sveltekit/client';
   import PlanCard from '$comp/custom/PlanCard.svelte';
   // import type { PageData } from './$types';
   import {
@@ -43,13 +42,6 @@
       description: 'Browse an extensive library of public playlists'
     }
   ];
-
-  // function signWithGoogle() {
-  //   signIn('google');
-  // }
-  // function logOut() {
-  //   signOut();
-  // }
 </script>
 
 <section class="mt-16 flex justify-center gap-4 max-md:flex-col">
@@ -59,7 +51,7 @@
       We are in public beta!</Badge
     >
     <h1
-      class="bg-gradient-to-r from-indigo-400 to-black bg-clip-text text-7xl font-semibold text-transparent"
+      class="w-fit bg-gradient-to-r from-indigo-400 to-indigo-950 bg-clip-text text-7xl font-semibold text-transparent"
     >
       Musc
     </h1>
@@ -100,10 +92,11 @@
 
 <section id="section-pricing" class="mx-auto mt-16 max-w-screen-lg flex-col max-md:mt-12">
   <h1 class="text-3xl font-semibold">Pricing</h1>
-  {@render creditCardSvg({ className: 'max-w-96 max-h-96 mx-auto' })}
+  {@render creditCardSvg({ className: 'max-w-96 max-md:max-w-80 max-h-96 mx-auto' })}
 
   <div class="flex flex-1 justify-center gap-16 max-md:flex-col">
     <PlanCard
+      planCookieValue="basic"
       name="Basic"
       description="Basic plan, lets you keep your exported music albums synced, you pay only once"
       price="10$"
@@ -120,6 +113,7 @@
       {/snippet}
     </PlanCard>
     <PlanCard
+      planCookieValue="free"
       name="Starter"
       description="Designed for those willing to try out the service"
       price="Free"
@@ -127,12 +121,6 @@
     />
   </div>
 </section>
-
-<!--<Button onclick={signWithGoogle}>Sign in</Button>-->
-<!--<Button onclick={logOut}>Sign out</Button>-->
-<!--<pre>-->
-<!--  {JSON.stringify(data, null, 2)}-->
-<!--</pre>-->
 
 {#snippet featureCard({ icon, title, description })}
   <div class="flex gap-2 p-4">
