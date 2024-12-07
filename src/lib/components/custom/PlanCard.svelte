@@ -13,7 +13,7 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import { CheckCircleIcon } from 'lucide-svelte';
   import { Button } from '$comp/ui/button';
 
