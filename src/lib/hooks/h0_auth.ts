@@ -10,6 +10,9 @@ export const { handle: h0Auth } = SvelteKitAuth({
   adapter: KyselyAdapter(db),
   trustHost: true,
   debug: true,
+  pages: {
+    signIn: '/dashboard'
+  },
   providers: [
     Google({
       clientId: env.GOOGLE_CLIENT_ID,
