@@ -39,37 +39,41 @@
 </div>
 
 {#snippet header()}
-  <header
-    class="sticky top-0 flex justify-between border-b-2 bg-background bg-opacity-60 px-4 py-3 backdrop-blur-sm md:px-16"
-  >
-    <Logo />
-    <div class="max-md:hidden">
-      {@render navigation({ className: '' })}
-    </div>
-    <div class="md:hidden">
-      {@render burgerButtonMenu()}
-    </div>
-  </header>
+  <Sheet.Root>
+    <header
+      class="sticky top-0 flex justify-between border-b-2 bg-background bg-opacity-60 px-4 py-3 backdrop-blur-sm md:px-16"
+    >
+      <Logo />
+      <div class="max-md:hidden">
+        {@render navigation({ className: '' })}
+      </div>
+      <div class="md:hidden">
+        {@render burgerButtonMenu()}
+      </div>
+    </header>
+  </Sheet.Root>
 {/snippet}
 
 {#snippet burgerButtonMenu()}
-  <Sheet.Root>
-    <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
-      <Menu size={24} />
-    </Sheet.Trigger>
-    <Sheet.Content side="right">
-      {@render navigation({ className: 'flex-col gap-2 items-start' })}
-    </Sheet.Content>
-  </Sheet.Root>
+  <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
+    <Menu size={24} />
+  </Sheet.Trigger>
+  <Sheet.Content side="right">
+    {@render navigation({ className: 'flex-col gap-2 items-start' })}
+  </Sheet.Content>
 {/snippet}
 
 {#snippet navigation({ className = '' })}
   <div class={`flex gap-2 ${className}`}>
     {#if data.authorized}
       <Button variant="ghost" onclick={signOut}><LogOut /></Button>
-      <Button variant="link" href="/dashboard">Dashboard</Button>
+      <Sheet.Close>
+        <Button variant="link" href="/dashboard">Dashboard</Button>
+      </Sheet.Close>
     {:else}
-      <Button variant="link" href="/#section-pricing">Try it!</Button>
+      <Sheet.Close>
+        <Button variant="link" href="/#section-pricing">Try it!</Button>
+      </Sheet.Close>
       <Button
         variant="link"
         onclick={() => signIn('google', { callbackUrl: '/dashboard' })}
