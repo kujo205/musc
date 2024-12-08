@@ -13,3 +13,20 @@ export function updateSearchParams(newParams: Record<string, string>) {
   });
   goto(url.toString(), { replaceState: true });
 }
+
+export function getInitials(sentence: string | undefined | null): string {
+  if (!sentence) {
+    return '';
+  }
+
+  return sentence
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase())
+    .join('');
+}
+
+export function daysLeft(targetDate: Date): number {
+  const currentDate = new Date();
+  const timeDifference = targetDate.getTime() - currentDate.getTime();
+  return Math.ceil(timeDifference / (1000 * 3600 * 24));
+}
