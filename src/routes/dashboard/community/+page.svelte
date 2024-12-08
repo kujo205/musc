@@ -2,3 +2,4 @@
 </script>
 
 <p>Community</p>
+<p>Coming soon</p>
