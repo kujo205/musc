@@ -11,7 +11,8 @@
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/80 border-transparent',
         outline: 'text-foreground',
-        indigo: 'bg-indigo-500 text-primary-foreground hover:bg-indigo-500/80 border-transparent'
+        indigo: 'bg-indigo-500 text-primary-foreground hover:bg-indigo-500/80 border-transparent',
+        green: 'bg-green-100 text-green-500 hover:bg-green-100/80 border-transparent'
       }
     },
     defaultVariants: {
