@@ -36,8 +36,6 @@
       <Tabs.Trigger class="!px-4" value={tab.id}>{tab.title}</Tabs.Trigger>
     {/each}
   </Tabs.List>
-  <Tabs.Content value="account"></Tabs.Content>
-  <Tabs.Content value="password"></Tabs.Content>
 </Tabs.Root>
 
 {@render children()}
