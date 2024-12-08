@@ -7,9 +7,9 @@
   import { cn } from '$lib/utils';
   import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 
-  interface Props extends Omit<HTMLInputAttributes, 'name' | 'abort'> {
+  interface Props extends Omit<HTMLInputAttributes, 'name' | 'abort' | 'form'> {
     name: FormPath<T>;
-    form: SuperForm<T> | any;
+    form: SuperForm<T>;
     label: string;
 
     isTextarea?: boolean;
