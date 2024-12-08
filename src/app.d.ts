@@ -1,5 +1,5 @@
 import type { Database } from '$db';
-import type { TUserWithSession } from '$server/services/AuthService';
+import type { TUserWithSession, AuthorizedUserWithSession } from '$server/services/AuthService';
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 
@@ -13,8 +13,10 @@ declare global {
     // interface PageState {}
     // interface Platform {}
   }
+  type TAuthorizedUserWithSession = AuthorizedUserWithSession;
   type RequiredBy<T, K extends keyof T> = T & { [P in K]-?: T[P] };
   type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
+  type NonUndefined<T> = T extends undefined ? never : T;
   type TDatabase = Database;
 }
 

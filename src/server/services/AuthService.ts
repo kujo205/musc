@@ -12,12 +12,7 @@ export class AuthService extends BaseService {
       return { user: null, authorized: false };
     }
 
-    const user = await db
-      .selectFrom('User as u')
-      .leftJoin('Account as a', 'a.userId', 'u.id')
-      .select(['u.id as user_id', 'u.subscription_type', 'u.email', 'u.name', 'u.image'])
-      .where('u.email', '=', userEmail)
-      .executeTakeFirst();
+    const user = await this.getAutorizedUserSession(userEmail);
 
     if (!user) {
       throw new DbError('No user found, session should be populated only for existing users');
@@ -25,7 +20,21 @@ export class AuthService extends BaseService {
 
     return { user, authorized: true };
   }
+
+  async getAutorizedUserSession(email: string) {
+    return db
+      .selectFrom('User as u')
+      .leftJoin('Account as a', 'a.userId', 'u.id')
+      .select(['u.id as user_id', 'u.subscription_type', 'u.email', 'u.name', 'u.image'])
+      .where('u.email', '=', email)
+      .executeTakeFirst();
+  }
 }
 
 export const authService = new AuthService(db);
 export type TUserWithSession = UnwrapPromise<ReturnType<typeof authService.populateUserSession>>;
+
+export type AuthorizedUserWithSession = {
+  user: NonNullable<UnwrapPromise<typeof authService.getAutorizedUserSession>>;
+  authorized: boolean;
+};

@@ -16,7 +16,8 @@ const config = {
       $server: './src/server/*',
       $routes: './src/routes/*',
       $db: './src/server/db/*',
-      $comp: './src/lib/components/*'
+      $comp: './src/lib/components/*',
+      $features: './src/features/*'
     }
   }
 };
