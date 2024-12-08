@@ -8,7 +8,9 @@
   import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 
   interface Props extends Omit<HTMLInputAttributes, 'name' | 'abort' | 'form'> {
+    // eslint-disable-next-line no-undef
     name: FormPath<T>;
+    // eslint-disable-next-line no-undef
     form: SuperForm<T>;
     label: string;
 
