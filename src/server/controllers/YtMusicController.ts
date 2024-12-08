@@ -39,22 +39,28 @@ export class YtMusicController {
 
   /**
    * Creates a sharable playlist from liked songs
-   * @param email - Email of a user
+   * @param userId - Id of a user
    * @param playlistName - Name of the playlist
    * @param playlistDescription - Description of the playlist
    * @param isPublicOnMuscMarketPlace - If Playlist os going to be public
+   * @param isAutoUpdate - If Playlist is going to be auto updated
    * @returns - link to a playlist
    */
   async createSharablePlaylistFromLiked(
-    email: string,
+    userId: string,
     playlistName: string = 'Liked Music',
     playlistDescription: string = 'My liked Music',
-    isPublicOnMuscMarketPlace: boolean = true
+    isPublicOnMuscMarketPlace: boolean = true,
+    isAutoUpdate: boolean = true
   ) {
-    const user = await this.userRepository.getUserByEmail(email);
+    const user = await this.userRepository.getUserById(userId);
 
     if (!user.cookie) {
-      throw new DbError(`no cookie for a user with email \`${email}\``);
+      throw new DbError(`no cookie for a user with email \`${user.email}\``);
+    }
+
+    if (isAutoUpdate && user.subscription_type !== 'basic') {
+      throw new DbError(`user \`${user.email}\` cannot create auto updated playlists`);
     }
 
     const id = await this.ytMusicService.createSharablePlaylistFromLiked(
@@ -71,7 +77,8 @@ export class YtMusicController {
       description: playlistDescription,
       user_id: user.id,
       link: playlistLink,
-      is_public_on_musc_marketplace: isPublicOnMuscMarketPlace
+      is_public_on_musc_marketplace: isPublicOnMuscMarketPlace,
+      is_auto_updated: isAutoUpdate
     });
 
     return playlistLink;

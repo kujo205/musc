@@ -36,6 +36,18 @@ export class UserService extends BaseService {
       .where('id', '=', userId)
       .executeTakeFirst();
   }
+
+  async checkUserHasYtMusicCredentials(userId: string) {
+    const resp = await this.db
+      .selectFrom('User')
+      .select('User.id')
+      .where('id', '=', userId)
+      .where('ytmusic_cookie', 'is not', null)
+      .where('ytmusic_cookie', '!=', '')
+      .execute();
+
+    return resp.length > 0;
+  }
 }
 
 export const userService = new UserService(db);
