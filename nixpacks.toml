@@ -1,4 +1,4 @@
-providers = ["...", "python"]
+providers = ["nodejs@18.20.4", "python"]
 
 [phases.setup]
 pythonPkgs = ["ytmusicapi"] # Install Python packages
