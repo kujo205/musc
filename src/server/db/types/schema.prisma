@@ -1,10 +1,10 @@
 generator kysely {
   provider            = "prisma-kysely"
   output              = "."
-  enumFileName        = "enums.ts"
-  decimalTypeOverride = "number"
   booleanTypeOverride = "boolean"
   fileName            = "db-types.d.ts"
+  decimalTypeOverride = "number"
+  enumFileName        = "enums.ts"
 }
 
 datasource db {
@@ -41,15 +41,17 @@ model Session {
 }
 
 model User {
-  id               String                @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
-  name             String?               @db.VarChar(255)
-  email            String                @unique(map: "email") @db.VarChar(255)
-  emailVerified    DateTime?             @default(now())
-  image            String?               @db.VarChar(255)
-  subscriptionType UserSubscriptionType? @default(free) @map("subscription_type")
-  ytmusicCookie    String?               @map("ytmusic_cookie") @db.VarChar(10000)
-  playlistSyncs    PlaylistSyncs[]
-  playlists        Playlists[]
+  id                     String                @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  name                   String?               @db.VarChar(255)
+  email                  String                @unique(map: "email") @db.VarChar(255)
+  emailVerified          DateTime?             @default(now())
+  image                  String?               @db.VarChar(255)
+  subscriptionType       UserSubscriptionType? @default(free) @map("subscription_type")
+  ytmusicCookie          String?               @map("ytmusic_cookie") @db.VarChar(10000)
+  ytmusicCookieExpiresAt DateTime?             @map("ytmusic_cookie_expires_at") @db.Timestamp(0)
+  ytmusicSetCookie       String?               @map("ytmusic_set_cookie") @db.VarChar(1000)
+  playlistSyncs          PlaylistSyncs[]
+  playlists              Playlists[]
 }
 
 model VerificationToken {
@@ -101,7 +103,7 @@ model Playlists {
 
 enum UserSubscriptionType {
   free
-  paid
+  basic
 
   @@map("User_subscription_type")
 }

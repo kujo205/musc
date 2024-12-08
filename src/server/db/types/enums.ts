@@ -1,5 +1,5 @@
 export const UserSubscriptionType = {
   free: 'free',
-  paid: 'paid'
+  basic: 'basic'
 } as const;
 export type UserSubscriptionType = (typeof UserSubscriptionType)[keyof typeof UserSubscriptionType];

@@ -60,6 +60,8 @@ export type User = {
   image: string | null;
   subscription_type: Generated<UserSubscriptionType | null>;
   ytmusic_cookie: string | null;
+  ytmusic_cookie_expires_at: Timestamp | null;
+  ytmusic_set_cookie: string | null;
 };
 export type VerificationToken = {
   identifier: string;
