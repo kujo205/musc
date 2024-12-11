@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { YtMusicError } from '$server/errors/YtMusicError';
 
 import { db } from '$db';
-import { constructAbsoluteFileName } from '$server/heleprs/constructAbsoluteFileName';
+import { getPythonScriptPath } from '$server/heleprs/constructAbsoluteFileName';
 
 export class YTMusicService extends BaseService {
   constructor(db: TDatabase) {
@@ -21,8 +21,7 @@ export class YTMusicService extends BaseService {
     args: string[],
     errorMessage: string
   ) {
-    // TODO: fix absolute path issue
-    const absolutePathToScript = constructAbsoluteFileName(relativePathToScript, import.meta.url);
+    const absolutePathToScript = getPythonScriptPath(relativePathToScript);
 
     return new Promise<T>((resolve, reject) => {
       const child = spawn('python3', [absolutePathToScript, ...args]);
@@ -61,7 +60,7 @@ export class YTMusicService extends BaseService {
     playlistDescription: string
   ) {
     const id = await this.ytMusicApiBase<string>(
-      '../python-scripts/create_sharable_playlist_from_liked.py',
+      'create_sharable_playlist_from_liked.py',
       [cookie, playlistName, playlistDescription],
       'error creating sharable playlist'
     );
@@ -81,7 +80,7 @@ export class YTMusicService extends BaseService {
    * */
   async syncExportedPlaylistsWithUpdatesFromLiked(filePath: string) {
     const resp = await this.ytMusicApiBase<void>(
-      '../python-scripts/sync_some_playlists_with_liked.py',
+      'sync_some_playlists_with_liked.py',
       ['--input_file', filePath],
       'error syncing exported playlist with updates from liked'
     );
