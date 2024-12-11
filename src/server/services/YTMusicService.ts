@@ -1,7 +1,7 @@
 import { BaseService } from './BaseService';
 import { spawn } from 'node:child_process';
 import { YtMusicError } from '$server/errors/YtMusicError';
-import path from 'node:path';
+
 import { db } from '$db';
 import { constructAbsoluteFileName } from '$server/heleprs/constructAbsoluteFileName';
 
