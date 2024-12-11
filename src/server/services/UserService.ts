@@ -1,6 +1,7 @@
 import { BaseService } from './BaseService';
 import { db } from '$db';
 import { extractExpiresAtAndFormat } from '$server/heleprs/extractExpiresAt';
+import type { AuthorizedUserWithSession } from '$server/services/AuthService';
 
 export class UserService extends BaseService {
   constructor(db: TDatabase) {
@@ -35,6 +36,22 @@ export class UserService extends BaseService {
       ])
       .where('id', '=', userId)
       .executeTakeFirst();
+  }
+
+  async checkUserHasYtMusicCredentials(userId: string) {
+    const resp = await this.db
+      .selectFrom('User')
+      .select('User.id')
+      .where('id', '=', userId)
+      .where('ytmusic_cookie', 'is not', null)
+      .where('ytmusic_cookie', '!=', '')
+      .execute();
+
+    return resp.length > 0;
+  }
+
+  async autoUpdatesEnabled(session: AuthorizedUserWithSession) {
+    return session.user.subscription_type === 'basic';
   }
 }
 

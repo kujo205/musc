@@ -14,7 +14,7 @@
   let user = $derived(data.info.user);
 </script>
 
-<main class="mt-8 flex flex-col gap-8">
+<main class="flex flex-col gap-8">
   <section class="flex flex-col gap-8">
     <h2 class="text-xl font-semibold">User's information</h2>
     <div class="flex flex-wrap gap-6">

@@ -13,6 +13,14 @@ export class UserRepository extends BaseRepository {
       .where('email', '=', email)
       .executeTakeFirstOrThrow();
   }
+
+  async getUserById(id: string) {
+    return this.db
+      .selectFrom('User')
+      .select(['User.ytmusic_cookie as cookie', 'User.id', 'User.subscription_type', 'User.email'])
+      .where('id', '=', id)
+      .executeTakeFirstOrThrow();
+  }
 }
 
 export const userRepository = new UserRepository(db);

@@ -5,7 +5,7 @@ def get_raw_headers(cookie):
         f"""{{     
             "accept": "*/*",
             "accept-language": "en-US,en;q=0.9",
-            "authorization": "SAPISIDHASH 1732805885_e25c3f4572b6ec1092de9dbba9662f4f9f247885_u",
+            "authorization": "SAPISIDHASH",
             "content-type": "application/json",
             "priority": "u=1, i",
             "sec-ch-ua": "Chromium;v=130, Google Chrome;v=130, Not?A_Brand;v=99",
@@ -23,7 +23,7 @@ def get_raw_headers(cookie):
             "sec-fetch-mode": "same-origin",
             "sec-fetch-site": "same-origin",
             "x-goog-authuser": "0",
-            "x-goog-visitor-id": "CgtlSU1sNW53Rlowcyj1iaK6BjIKCgJVQRIEGgAgGw%3D%3D",
+            "x-goog-visitor-id": "",
             "x-origin": "https://music.youtube.com",
             "x-youtube-bootstrap-logged-in": "true",
             "x-youtube-client-name": "67",

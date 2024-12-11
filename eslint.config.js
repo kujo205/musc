@@ -16,6 +16,10 @@ export default ts.config(
         ...globals.browser,
         ...globals.node
       }
+    },
+    rules: {
+      'svelte/valid-svelte-component': 'off',
+      'svelte/no-at-html-tags': 'off'
     }
   },
   {

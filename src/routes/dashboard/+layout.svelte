@@ -26,6 +26,7 @@
 </script>
 
 <Tabs.Root
+  class="mb-8"
   onValueChange={(value) => {
     goto(`/dashboard/${value}`);
   }}

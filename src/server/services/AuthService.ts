@@ -35,6 +35,6 @@ export const authService = new AuthService(db);
 export type TUserWithSession = UnwrapPromise<ReturnType<typeof authService.populateUserSession>>;
 
 export type AuthorizedUserWithSession = {
-  user: NonNullable<UnwrapPromise<typeof authService.getAutorizedUserSession>>;
+  user: NonNullable<UnwrapPromise<ReturnType<typeof authService.getAutorizedUserSession>>>;
   authorized: boolean;
 };
