@@ -1,7 +1,6 @@
 import { BaseService } from './BaseService';
 import { spawn } from 'node:child_process';
 import { YtMusicError } from '$server/errors/YtMusicError';
-
 import { db } from '$db';
 import { constructAbsoluteFileName } from '$server/heleprs/constructAbsoluteFileName';
 
@@ -21,10 +20,11 @@ export class YTMusicService extends BaseService {
     args: string[],
     errorMessage: string
   ) {
-    return new Promise<T>((resolve, reject) => {
-      const pathToScript = constructAbsoluteFileName(relativePathToScript, import.meta.url);
+    // TODO: fix absolute path issue
+    const absolutePathToScript = constructAbsoluteFileName(relativePathToScript, import.meta.url);
 
-      const child = spawn('python3', [pathToScript, ...args]);
+    return new Promise<T>((resolve, reject) => {
+      const child = spawn('python3', [absolutePathToScript, ...args]);
 
       let output = '';
       let errorOutput = '';
