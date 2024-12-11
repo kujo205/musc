@@ -45,6 +45,10 @@
           },
           duration: 7000
         });
+      } else {
+        toast.error('Error creating playlist', {
+          duration: 7000
+        });
       }
       console.log('result', event.result);
     }
