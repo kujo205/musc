@@ -11,6 +11,7 @@ export async function up(db: Kysely<never>): Promise<void> {
             description text                                  null,
             user_id     varchar(36)                           not null,
             is_public_on_musc_marketplace tinyint(1) default 0 not null,
+            is_auto_updated tinyint(1) default 0 null,
             link        varchar(256)                           not null,
             created_at  timestamp   default CURRENT_TIMESTAMP not null,
             updated_at  timestamp                             null on update CURRENT_TIMESTAMP,

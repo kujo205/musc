@@ -5,7 +5,7 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import * as Card from '$comp/ui/card/index.js';
   import { Button } from '$comp/ui/button/index.js';
   import { Calendar } from 'lucide-svelte';

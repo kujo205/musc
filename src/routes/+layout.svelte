@@ -6,6 +6,7 @@
   import { Github, LogOut, Menu } from 'lucide-svelte';
   import { buttonVariants } from '$lib/components/ui/button';
   import { signOut, signIn } from '@auth/sveltekit/client';
+  import { Toaster } from '$lib/components/ui/sonner';
 
   import { ModeWatcher } from 'mode-watcher';
   import { Button } from '$comp/ui/button';
@@ -21,6 +22,8 @@
     data: LayoutData;
   } = $props();
 </script>
+
+<Toaster richColors={true} />
 
 <svelte:head>
   <title>Musc</title>

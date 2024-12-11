@@ -9,13 +9,14 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import { credentialsSchema } from '$features/account/schemas';
   import InputField from '$comp/form_fields/InputField.svelte';
   import * as Card from '$comp/ui/card/index.js';
   import { Button } from '$comp/ui/button/index.js';
+  import { invalidateAll } from '$app/navigation';
 
   let { form: f, expiresAt }: Props = $props();
 
@@ -23,9 +24,7 @@
     validators: zodClient(credentialsSchema),
     onUpdated: ({ form: f }) => {
       if (f.valid) {
-        // toast.success(`You submitted ${JSON.stringify(f.data, null, 2)}`);
-      } else {
-        // toast.error('Please fix the errors in the form.');
+        invalidateAll();
       }
     }
   });
