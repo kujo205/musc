@@ -39,27 +39,6 @@
       icon: Link
     }
   ];
-
-  const playlists = [
-    {
-      href: 'https://example.com/playlist/1',
-      name: 'My Favorite Playlist',
-      description: 'A collection of my favorite songs.',
-      updated_at: new Date()
-    },
-    {
-      href: 'https://example.com/playlist/1',
-      name: 'My Favorite Playlist',
-      description: 'A collection of my favorite songs.',
-      updated_at: new Date()
-    },
-    {
-      href: 'https://example.com/playlist/1',
-      name: 'My Favorite Playlist',
-      description: 'A collection of my favorite songs.',
-      updated_at: new Date()
-    }
-  ];
 </script>
 
 <div>
@@ -72,14 +51,19 @@
     {/each}
   </section>
 
-  <CreatePlaylistModal />
+  <CreatePlaylistModal hasEnoughRightForAutoUpdates={data.autoUpdatesEnabled} form={data.form} />
 
   <div class="mt-8 flex flex-col gap-4 rounded-sm bg-muted p-4 sm:p-8">
     <h2 class="text-lg font-semibold">My exported playlists</h2>
 
-    <section class=" flex flex-wrap gap-4">
-      {#each playlists as plylist}
-        <PlaylistCard {...plylist} />
+    <section class="grid gap-4 md:grid-cols-2">
+      {#each data.playlists as plylist}
+        <PlaylistCard
+          description={plylist.description || 'No description'}
+          href={plylist.link}
+          name={plylist?.name || 'Untitled'}
+          updated_at={plylist.created_at}
+        />
       {/each}
     </section>
   </div>

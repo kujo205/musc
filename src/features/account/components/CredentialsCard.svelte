@@ -9,7 +9,7 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import { credentialsSchema } from '$features/account/schemas';

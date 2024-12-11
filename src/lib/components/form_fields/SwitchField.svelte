@@ -11,15 +11,16 @@
     form: SuperForm<T>;
     label: string;
     checked: boolean;
+    disabled?: boolean;
   }
-  let { checked = $bindable(), label, form, name }: Props = $props();
+  let { checked = $bindable(), label, form, name, disabled = false }: Props = $props();
 </script>
 
 <Form.Field {form} {name}>
   <Form.Control>
     {#snippet children(props)}
       <div class="flex items-center space-x-2">
-        <Switch {...props} bind:checked {name} />
+        <Switch {...props} {disabled} bind:checked {name} />
         <Label for="in_search_for_job">{label}</Label>
       </div>
     {/snippet}

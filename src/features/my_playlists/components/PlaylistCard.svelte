@@ -22,7 +22,7 @@
   }
 </script>
 
-<Card.Root class="flex max-w-[520px] overflow-hidden">
+<Card.Root class="flex h-36 min-w-80 max-w-[520px] overflow-hidden">
   <a {href} class="aspect-square max-w-40 object-contain max-sm:max-w-28" target="_blank">
     <img
       class="aspect-square h-full object-cover"
@@ -30,17 +30,19 @@
       src="/ytmusic-liked.png"
     />
   </a>
-  <div class="flex flex-col justify-between gap-6 p-4">
+  <div class="flex flex-1 flex-col justify-between gap-6 p-4">
     <div>
       <h2 class="font-semibold">{name}</h2>
       <p class="text-sm">{description}</p>
     </div>
 
     <div class="flex justify-between">
-      <span class="inline-flex items-center gap-2 text-sm text-muted-foreground">
-        <Calendar size={14} />
-        {getFormattedDate(updated_at)}
-      </span>
+      {#if updated_at}
+        <span class="inline-flex items-center gap-2 text-sm text-muted-foreground">
+          <Calendar size={14} />
+          {getFormattedDate(updated_at)}
+        </span>
+      {/if}
       <CopyBtn tooltipText="Click to copy playlist link to the clipboard" text={href} />
     </div>
   </div>

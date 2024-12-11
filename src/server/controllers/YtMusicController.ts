@@ -5,6 +5,7 @@ import { constructAbsoluteFileName } from '$server/heleprs/constructAbsoluteFile
 import fs from 'node:fs/promises';
 import { db } from '$db';
 import { DbError } from '$server/errors/DbError';
+import { YtMusicError } from '$server/errors/YtMusicError';
 
 type TFileSystem = typeof fs;
 
@@ -68,6 +69,12 @@ export class YtMusicController {
       playlistName,
       playlistDescription
     );
+
+    if (id.length > 40) {
+      throw new YtMusicError(
+        'You have probably exceeded your daily quota, please come back and try later'
+      );
+    }
 
     const playlistLink = `https://music.youtube.com/playlist?list=${id}`;
 

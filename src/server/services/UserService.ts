@@ -1,6 +1,7 @@
 import { BaseService } from './BaseService';
 import { db } from '$db';
 import { extractExpiresAtAndFormat } from '$server/heleprs/extractExpiresAt';
+import type { AuthorizedUserWithSession } from '$server/services/AuthService';
 
 export class UserService extends BaseService {
   constructor(db: TDatabase) {
@@ -47,6 +48,10 @@ export class UserService extends BaseService {
       .execute();
 
     return resp.length > 0;
+  }
+
+  async autoUpdatesEnabled(session: AuthorizedUserWithSession) {
+    return session.user.subscription_type === 'basic';
   }
 }
 

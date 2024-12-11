@@ -5,19 +5,19 @@
   }
 </script>
 
-<script>
+<script lang="ts">
+  import { copyTextToClipboard } from '$lib/utils';
   import { Button } from '$comp/ui/button';
   import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '$comp/ui/tooltip';
   import { cn } from '$lib/utils';
   import { Check, Copy } from 'lucide-svelte';
-
   const { text, tooltipText = 'Click to copy' }: CopyBtnProps = $props();
 
   let copied = $state(false);
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(text);
+      await copyTextToClipboard(text);
       copied = true;
       setTimeout(() => (copied = false), 1500);
     } catch (err) {

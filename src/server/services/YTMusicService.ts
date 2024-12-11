@@ -64,6 +64,7 @@ export class YTMusicService extends BaseService {
       [cookie, playlistName, playlistDescription],
       'error creating sharable playlist'
     );
+    console.log('[create sharable playlist] creating sharable playlist from liked end');
 
     return id.trim();
   }
@@ -85,6 +86,14 @@ export class YTMusicService extends BaseService {
     );
 
     return resp;
+  }
+
+  async fetchUserExportedPlaylists(userId: string) {
+    return this.db
+      .selectFrom('playlists')
+      .select(['id', 'name', 'description', 'link', 'is_auto_updated', 'created_at'])
+      .where('user_id', '=', userId)
+      .execute();
   }
 }
 
