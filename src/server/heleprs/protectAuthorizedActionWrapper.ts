@@ -23,6 +23,8 @@ export async function protectAuthorizedActionWrapper<T extends z.ZodSchema>(
     throw new AuthenticationError('User not logged in');
   }
 
+  console.log('event', event);
+
   const form = await superValidate(event, zod(schema));
 
   if (!form.valid) {
@@ -32,6 +34,8 @@ export async function protectAuthorizedActionWrapper<T extends z.ZodSchema>(
   const userId = event.locals.info.user.user_id;
 
   const data = form.data;
+
+  console.log('[action wrapper]: data', data, form);
 
   await cb({ form, data, userId });
 

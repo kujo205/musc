@@ -30,3 +30,7 @@ export function daysLeft(targetDate: Date): number {
   const timeDifference = targetDate.getTime() - currentDate.getTime();
   return Math.ceil(timeDifference / (1000 * 3600 * 24));
 }
+
+export async function copyTextToClipboard(text: string) {
+  await navigator.clipboard.writeText(text);
+}
