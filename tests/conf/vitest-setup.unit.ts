@@ -13,3 +13,11 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: vi.fn()
   }))
 });
+
+Object.assign(navigator, {
+  clipboard: {
+    writeText: (text: string) => {
+      return Promise.resolve(text);
+    }
+  }
+});
