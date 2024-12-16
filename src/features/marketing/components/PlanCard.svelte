@@ -75,7 +75,3 @@
 
   <Button onclick={signWithGoogle}>Select Plan</Button>
 </div>
-<!--<Button onclick={logOut}>Sign out</Button>-->
-<!--<pre>-->
-<!--  {JSON.stringify(data, null, 2)}-->
-<!--</pre>-->
