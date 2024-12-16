@@ -30,6 +30,7 @@
   <Tooltip>
     <TooltipTrigger>
       <Button
+        data-testid="copy-btn"
         variant="outline"
         size="icon"
         class="!p-2 disabled:opacity-100"
