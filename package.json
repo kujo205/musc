@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "codegen": "prisma db pull --schema=src/server/db/types/schema.prisma && prisma-case-format --file src/server/db/types/schema.prisma && prisma generate --schema=src/server/db/types/schema.prisma  && prettier --write src/server/db/types/db-types.d.ts src/server/db/types/enums.ts",
-    "test:unit": "vitest",
+    "test:unit": "vitest --config ./tests/conf/vite.unit.config.ts",
     "test": "npm run test:unit -- --run && npm run test:e2e",
     "test:e2e": "playwright test",
     "make-migration": "bunx kysely migrate:make",
@@ -59,6 +59,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.7.2",
     "typescript-eslint": "^8.0.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.0.4",
     "zod": "^3.23.8"
   },

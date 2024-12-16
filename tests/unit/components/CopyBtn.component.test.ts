@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/svelte';
 import { expect, test, vi, describe } from 'vitest';
-import CopyBtn from '$lib/components/custom/CopyBtn.svelte';
+import CopyBtn from '$comp/custom/CopyBtn.svelte';
 import * as utils from '$lib/utils';
 
 describe('Testing CopyBtn component', () => {
