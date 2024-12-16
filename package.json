@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "codegen": "prisma db pull --schema=src/server/db/types/schema.prisma && prisma-case-format --file src/server/db/types/schema.prisma && prisma generate --schema=src/server/db/types/schema.prisma  && prettier --write src/server/db/types/db-types.d.ts src/server/db/types/enums.ts",
-    "test:unit": "vitest --coverage",
+    "test:unit": "vitest",
     "test": "npm run test:unit -- --run && npm run test:e2e",
     "test:e2e": "playwright test",
     "make-migration": "bunx kysely migrate:make",
