@@ -1,5 +1,7 @@
 import type { Database } from '$db';
+export * from 'vitest';
 import type { TUserWithSession, AuthorizedUserWithSession } from '$server/services/AuthService';
+import * as integration from '../tests/conf/factory';
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 
@@ -20,4 +22,9 @@ declare global {
   type TDatabase = Database;
 }
 
-export {};
+declare module 'vitest' {
+  export interface TestContext {
+    integration: typeof integration;
+    request: Request;
+  }
+}
