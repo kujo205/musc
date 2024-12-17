@@ -3,22 +3,16 @@ import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteTesting } from '@testing-library/svelte/vite';
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   plugins: [sveltekit(), svelteTesting()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    include: ['tests/**/*.{test,spec}.{js,ts}'],
-    setupFiles: ['./vitest-setup.ts'],
-
-    coverage: {
-      provider: 'istanbul',
-      reporter: ['text', 'json', 'html', 'json-summary'],
-      exclude: ['node_modules', 'tests', 'build/**', '.svelte-kit/**'],
-      reportOnFailure: true
+    include: ['tests/integration/**/*.{test,spec}.{js,ts}'],
+    setupFiles: ['tests/conf/vitest-setup.integration.ts'],
+    poolOptions: {
+      threads: {
+        singleThread: true
+      }
     }
-  },
-  resolve: {
-    conditions: mode === 'test' ? ['browser'] : []
   }
 }));
