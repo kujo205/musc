@@ -47,6 +47,29 @@ jobs:
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
 
+  integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: Restore Node.js modules from cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Run integration tests
+        run: npm run test:i
+      - name: 'Report Coverage'
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+
+
   e2e-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
