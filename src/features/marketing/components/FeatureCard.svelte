@@ -12,6 +12,7 @@
 </script>
 
 <div class="flex gap-2 p-4">
+  <!-- eslint-disable-next-line svelte/valid-compile -->
   <svelte:component this={icon} class="size-9 rounded-full bg-secondary !p-2"></svelte:component>
   <div class="flex flex-col">
     <h2 class="text-xl font-semibold">{title}</h2>
