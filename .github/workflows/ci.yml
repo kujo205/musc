@@ -69,7 +69,6 @@ jobs:
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
 
-
   e2e-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
