@@ -1,0 +1,14 @@
+{
+  "name": "workflows",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kujo205/yt-music-sharer.git"
+  },
+  "private": true
+}

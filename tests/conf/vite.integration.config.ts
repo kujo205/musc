@@ -13,6 +13,12 @@ export default defineConfig(() => ({
       threads: {
         singleThread: true
       }
+    },
+
+    coverage: {
+      reporter: ['text', 'json', 'html', 'json-summary'],
+      exclude: ['node_modules', 'tests', 'build/**', '.svelte-kit/**'],
+      reportOnFailure: true
     }
   }
 }));

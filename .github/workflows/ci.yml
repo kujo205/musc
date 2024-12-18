@@ -63,6 +63,8 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
+      - name: Run pretest script
+        run: npm run test:i
       - name: Run integration tests
         run: npm run test:i
       - name: 'Report Coverage'
