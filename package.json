@@ -13,7 +13,7 @@
     "codegen": "prisma db pull --schema=src/server/db/types/schema.prisma && prisma-case-format --file src/server/db/types/schema.prisma && prisma generate --schema=src/server/db/types/schema.prisma  && prettier --write src/server/db/types/db-types.d.ts src/server/db/types/enums.ts",
     "test": "npm run test:unit && npm run test:i && npm run test:e2e",
     "test:unit": "vitest --coverage --config ./tests/conf/vite.unit.config.ts",
-    "pretest:i": "dotenv -e .env.test npm run db:up && dotenv -e .env.test npm run db:migrate && dotenv -e .env.test npm run db:seed",
+    "pretest:i": "dotenv -e .env.test npm run db:up && sleep 20 && dotenv -e .env.test npm run db:migrate && dotenv -e .env.test npm run db:seed",
     "test:i": "vitest --coverage  --config ./tests/conf/vite.integration.config.ts",
     "posttest:i": "dotenv -e .env.test npm run db:down",
     "test:e2e": "playwright test",

@@ -12,5 +12,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: test
+    healthcheck:
+      test: mysql --user=root --password=123 --execute='show databases'
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+      start_interval: 5s
     volumes:
       - .docker/setup.sql:/docker-entrypoint-initdb.d/init.sql
