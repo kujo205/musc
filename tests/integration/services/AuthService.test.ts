@@ -13,8 +13,8 @@ describe('AuthService', () => {
     image: 'http://example.com/image.png'
   } as const;
 
-  beforeEach(async () => {
-    await db.insertInto('User').values(user).execute();
+  beforeEach(async ({ integration }) => {
+    await integration.createUser(user.id, user.email);
   });
 
   it('should populate user session for existing user', async () => {
