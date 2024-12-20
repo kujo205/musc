@@ -11,7 +11,7 @@ describe('AuthService', () => {
     subscription_type: 'basic',
     name: 'Test User',
     image: 'http://example.com/image.png'
-  };
+  } as const;
 
   beforeEach(async () => {
     await db.insertInto('User').values(user).execute();
