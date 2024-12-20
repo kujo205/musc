@@ -3,7 +3,6 @@ import { type DB, db } from '$db';
 import type { Selectable } from 'kysely';
 
 type TPlaylistInsert = Omit<Selectable<DB['playlists']>, 'updated_at' | 'created_at'>;
-type TPlaylistUpdate = RequiredBy<TPlaylistInsert, 'id'>;
 
 export class PlaylistsRepository extends BaseRepository {
   constructor(db: TDatabase) {
@@ -11,10 +10,6 @@ export class PlaylistsRepository extends BaseRepository {
   }
 
   insertPlaylist(playlist: TPlaylistInsert) {
-    return this.db.insertInto('playlists').values(playlist).executeTakeFirstOrThrow();
-  }
-
-  updatePlaylist(playlist: TPlaylistUpdate) {
     return this.db.insertInto('playlists').values(playlist).executeTakeFirstOrThrow();
   }
 
