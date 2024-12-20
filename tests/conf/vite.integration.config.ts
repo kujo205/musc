@@ -17,7 +17,14 @@ export default defineConfig(() => ({
 
     coverage: {
       reporter: ['text', 'json', 'html', 'json-summary'],
-      exclude: ['node_modules', 'tests', 'build/**', '.svelte-kit/**'],
+      exclude: [
+        'node_modules',
+        'tests',
+        'build/**',
+        '.svelte-kit/**',
+        'src/lib/components/ui',
+        '*.config.*'
+      ],
       reportOnFailure: true
     }
   }
