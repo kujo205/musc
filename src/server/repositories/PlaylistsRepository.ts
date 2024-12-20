@@ -20,6 +20,18 @@ export class PlaylistsRepository extends BaseRepository {
       .select(['u.ytmusic_cookie as cookie', 'p.id as target_playlist_id'])
       .execute();
   }
+
+  deletePlaylist(playlistId: string) {
+    return this.db.deleteFrom('playlists').where('id', '=', playlistId).executeTakeFirstOrThrow();
+  }
+
+  updatePlaylist(playlistId: string, playlist: Partial<TPlaylistInsert>) {
+    return this.db
+      .updateTable('playlists')
+      .set(playlist)
+      .where('id', '=', playlistId)
+      .executeTakeFirstOrThrow();
+  }
 }
 
 export const playlistsRepository = new PlaylistsRepository(db);
