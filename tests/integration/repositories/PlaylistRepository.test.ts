@@ -15,8 +15,6 @@ describe('PlaylistsRepository', () => {
   };
 
   beforeEach(async () => {
-    await db.deleteFrom('playlists').execute();
-    await db.deleteFrom('User').execute();
     await db
       .insertInto('User')
       .values({
