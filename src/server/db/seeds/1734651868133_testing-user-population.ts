@@ -18,7 +18,7 @@ export async function seed(db: Kysely<any>): Promise<void> {
       {
         id: crypto.randomUUID(),
         name: 'Test 2',
-        email: 'test@example.com',
+        email: 'test2@example.com',
         emailVerified: new Date(),
         image: 'https://example.com/jane.jpg',
         subscription_type: 'basic',
