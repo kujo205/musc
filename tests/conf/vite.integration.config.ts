@@ -15,6 +15,10 @@ export default defineConfig(() => ({
       }
     },
 
+    sequence: {
+      hooks: 'list'
+    },
+
     coverage: {
       reporter: ['text', 'json', 'html', 'json-summary'],
       exclude: [

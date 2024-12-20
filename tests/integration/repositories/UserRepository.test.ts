@@ -7,7 +7,6 @@ describe('UserRepository', () => {
   const id = '260a16cd-92dd-4316-97bd-f5d73981b4a9';
 
   beforeEach(async ({ integration }) => {
-    await db.deleteFrom('User').execute();
     await integration.createUser(id, email);
   });
 
