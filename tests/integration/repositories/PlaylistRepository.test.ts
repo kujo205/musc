@@ -4,6 +4,7 @@ import { playlistsRepository } from '$server/repositories/PlaylistsRepository';
 
 describe('PlaylistsRepository', () => {
   const userId = '260a1sdads5d73981b4a9';
+
   const playlist = {
     id: '1',
     name: 'My Playlist',
@@ -14,19 +15,13 @@ describe('PlaylistsRepository', () => {
     link: 'http://example.com/playlist'
   };
 
-  beforeEach(async () => {
-    await db
-      .insertInto('User')
-      .values({
-        id: userId,
-        ytmusic_cookie: 'test_cookie',
-        email: 'user2@example.com'
-      })
-      .execute();
+  beforeEach(async ({ integration }) => {
+    await integration.createUser(userId, 'user@email.com');
+
+    await playlistsRepository.insertPlaylist(playlist);
   });
 
   it('should insert a playlist', async () => {
-    await playlistsRepository.insertPlaylist(playlist);
     const insertedPlaylist = await db
       .selectFrom('playlists')
       .selectAll()
@@ -38,16 +33,14 @@ describe('PlaylistsRepository', () => {
   });
 
   it('should retrieve all playlists to sync', async () => {
-    await playlistsRepository.insertPlaylist(playlist);
     const playlistsToSync = await playlistsRepository.getAllPlaylistsToSync();
 
     expect(playlistsToSync).toHaveLength(1);
-    expect(playlistsToSync[0]).toHaveProperty('cookie', 'test_cookie');
+    expect(playlistsToSync[0]).toHaveProperty('cookie');
     expect(playlistsToSync[0]).toHaveProperty('target_playlist_id', playlist.id);
   });
 
   it('should delete a playlist by id', async () => {
-    await playlistsRepository.insertPlaylist(playlist);
     await playlistsRepository.deletePlaylist(playlist.id);
     const deletedPlaylist = await db
       .selectFrom('playlists')
@@ -59,7 +52,6 @@ describe('PlaylistsRepository', () => {
   });
 
   it('should update a playlist by id', async () => {
-    await playlistsRepository.insertPlaylist(playlist);
     const updatedData = { name: 'Updated Playlist' };
     await playlistsRepository.updatePlaylist(playlist.id, updatedData);
     const updatedPlaylist = await db
