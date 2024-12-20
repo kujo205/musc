@@ -47,4 +47,42 @@ describe('PlaylistsRepository', () => {
     expect(playlistsToSync[0]).toHaveProperty('cookie', 'test_cookie');
     expect(playlistsToSync[0]).toHaveProperty('target_playlist_id', playlist.id);
   });
+
+  it('should delete a playlist by id', async () => {
+    await playlistsRepository.insertPlaylist(playlist);
+    await playlistsRepository.deletePlaylist(playlist.id);
+    const deletedPlaylist = await db
+      .selectFrom('playlists')
+      .selectAll()
+      .where('id', '=', playlist.id)
+      .executeTakeFirst();
+
+    expect(deletedPlaylist).toBeUndefined();
+  });
+
+  it('should update a playlist by id', async () => {
+    await playlistsRepository.insertPlaylist(playlist);
+    const updatedData = { name: 'Updated Playlist' };
+    await playlistsRepository.updatePlaylist(playlist.id, updatedData);
+    const updatedPlaylist = await db
+      .selectFrom('playlists')
+      .selectAll()
+      .where('id', '=', playlist.id)
+      .executeTakeFirstOrThrow();
+
+    expect(updatedPlaylist).toHaveProperty('name', updatedData.name);
+  });
+
+  it('should not delete a non-existent playlist', async () => {
+    const res = await playlistsRepository.deletePlaylist('non-existent-id');
+
+    await expect(Number(res.numDeletedRows)).toBe(0);
+  });
+
+  it('should not update a non-existent playlist', async () => {
+    const updatedData = { name: 'Updated Playlist' };
+
+    const res = await playlistsRepository.updatePlaylist('non-existent-id', updatedData);
+    await expect(Number(res.numUpdatedRows)).toBe(0);
+  });
 });

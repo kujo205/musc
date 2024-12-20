@@ -3,7 +3,7 @@ import { db } from '$db';
 import { userRepository } from '$server/repositories/UserRepository';
 
 describe('UserRepository', () => {
-  const email = 'user@example.com';
+  const email = 'user678@example.com';
   const id = '260a16cd-92dd-4316-97bd-f5d73981b4a9';
 
   beforeEach(async ({ integration }) => {
