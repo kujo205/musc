@@ -1,4 +1,4 @@
-import { describe, it, beforeEach, expect } from 'vitest';
+import { describe, beforeEach, it, expect } from 'vitest';
 import { db } from '$db';
 import { authService } from '$server/services/AuthService';
 import { DbError } from '$server/errors/DbError';

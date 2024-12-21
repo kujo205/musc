@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { db } from '$db';
+import { PlaylistsRepository } from '$server/repositories/PlaylistsRepository';
 
 export const createUser = async (id: string, email: string) => {
   const user = {
@@ -14,6 +15,23 @@ export const createUser = async (id: string, email: string) => {
     ytmusic_set_cookie: faker.string.alphanumeric(100)
   };
 
-  await db.insertInto('User').values(user).execute();
+  await db.transaction().execute(async (trx) => {
+    await trx.insertInto('User').values(user).execute();
+  });
+
   return user;
 };
+
+export const teardown = async () => {
+  await db.transaction().execute(async (trx) => {
+    await trx.deleteFrom('playlists').execute();
+
+    await trx.deleteFrom('User').execute();
+  });
+};
+
+export const playlistRepository = new PlaylistsRepository(db);
+
+export function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

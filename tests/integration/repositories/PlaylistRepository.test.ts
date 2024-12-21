@@ -1,12 +1,13 @@
-import { describe, it, beforeEach, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { db } from '$db';
+import { faker } from '@faker-js/faker';
 import { playlistsRepository } from '$server/repositories/PlaylistsRepository';
 
 describe('PlaylistsRepository', () => {
-  const userId = '260a1sdads5d73981b4a9';
+  const userId = faker.string.uuid();
 
   const playlist = {
-    id: '1',
+    id: faker.string.uuid(),
     name: 'My Playlist',
     description: 'A description of my playlist',
     user_id: userId,
@@ -24,9 +25,9 @@ describe('PlaylistsRepository', () => {
   it('should insert a playlist', async () => {
     const insertedPlaylist = await db
       .selectFrom('playlists')
-      .selectAll()
+      .select(['id', 'name'])
       .where('id', '=', playlist.id)
-      .executeTakeFirstOrThrow();
+      .executeTakeFirst();
 
     expect(insertedPlaylist).toHaveProperty('id', playlist.id);
     expect(insertedPlaylist).toHaveProperty('name', playlist.name);
@@ -66,13 +67,13 @@ describe('PlaylistsRepository', () => {
   it('should not delete a non-existent playlist', async () => {
     const res = await playlistsRepository.deletePlaylist('non-existent-id');
 
-    await expect(Number(res.numDeletedRows)).toBe(0);
+    expect(Number(res.numDeletedRows)).toBe(0);
   });
 
   it('should not update a non-existent playlist', async () => {
     const updatedData = { name: 'Updated Playlist' };
 
     const res = await playlistsRepository.updatePlaylist('non-existent-id', updatedData);
-    await expect(Number(res.numUpdatedRows)).toBe(0);
+    expect(Number(res.numUpdatedRows)).toBe(0);
   });
 });
