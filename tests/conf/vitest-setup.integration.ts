@@ -1,5 +1,5 @@
 import * as integration from './factory';
-import { beforeEach, afterEach } from 'vitest';
+import { beforeEach } from 'vitest';
 
 beforeEach(async (context) => {
   await integration.teardown();
