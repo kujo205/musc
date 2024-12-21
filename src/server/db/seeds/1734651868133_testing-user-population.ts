@@ -1,6 +1,6 @@
 import type { Kysely } from 'kysely';
 
-export async function seed(db: Kysely<any>): Promise<void> {
+export async function seed(db: Kysely<never>): Promise<void> {
   await db
     .insertInto('User')
     .values([
