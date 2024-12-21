@@ -22,7 +22,7 @@
     "db:make-seed": "npx kysely seed:make",
     "db:seed": "npx kysely seed:run",
     "db:up": "docker compose up -d db",
-    "db:down": "docker compose down && docker stop integration-tests-mysql && docker rm integration-tests-mysql",
+    "db:down": "docker compose down",
     "prepare": "husky install"
   },
   "devDependencies": {
