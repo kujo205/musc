@@ -12,11 +12,10 @@ export default defineConfig(() => ({
     poolOptions: {
       threads: {
         singleThread: true
+      },
+      forks: {
+        singleFork: true
       }
-    },
-
-    sequence: {
-      hooks: 'list'
     },
 
     coverage: {

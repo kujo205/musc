@@ -1,10 +1,10 @@
-import { describe, it, beforeEach, expect } from 'vitest';
-import { db } from '$db';
+import { describe, beforeEach, it, expect } from 'vitest';
 import { userRepository } from '$server/repositories/UserRepository';
+import { faker } from '@faker-js/faker';
 
 describe('UserRepository', () => {
-  const email = 'user678@example.com';
-  const id = '260a16cd-92dd-4316-97bd-f5d73981b4a9';
+  const email = faker.internet.email();
+  const id = faker.string.uuid();
 
   beforeEach(async ({ integration }) => {
     await integration.createUser(id, email);
