@@ -16,22 +16,34 @@ test.describe('Marketing page', () => {
     await page.goto('/');
 
     await context.clearCookies();
-    await page.reload({ waitUntil: 'networkidle' });
 
-    // sign-up-free
     const basicPlanBtn = page.getByTestId('sign-up-basic');
-
-    console.log(basicPlanBtn);
 
     await basicPlanBtn.click();
 
-    await page.waitForTimeout(10000);
-    // await page.waitForURL('https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount**');
+    await page.waitForURL(/.*\/oauth.*/);
 
     const url = page.url();
 
-    console.log(url);
+    expect(url).toContain('oauth');
+  });
 
-    expect(url).toContain('localhost');
+  test('Redirects to signup when unauthorized user clicks free plan card', async ({
+    page,
+    context
+  }) => {
+    await page.goto('/');
+
+    await context.clearCookies();
+
+    const freePlanBtn = page.getByTestId('sign-up-free');
+
+    await freePlanBtn.click();
+
+    await page.waitForURL(/.*\/oauth.*/);
+
+    const url = page.url();
+
+    expect(url).toContain('oauth');
   });
 });
