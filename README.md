@@ -8,6 +8,50 @@ The purpose of this service is to make up for limitations of YT music platform. 
 
 I am a big fan of music as many of us are. There are loads of music service providers, one of which is Youtube music. It is a great music listening platform, every music item I have I store there. However it comes with some limitations.
 
+## How to run and test the project
+
+Install with
+
+```bash
+git clone <utl-to-this-repo>
+```
+
+cd to a projects root directory
+
+```sh
+cd <path-to-musc-repo>
+```
+
+Install dependencies
+
+```sh
+npm i
+```
+
+To run unit tests hit
+
+```sh
+npm run test:unit
+```
+
+To run integration tests hit
+
+```sh
+npm run test:i
+```
+
+To run e2e tests hit
+
+```sh
+npm run test:e2e
+```
+
+You can also run all the tests at once, but it is not reccomended
+
+```sh
+npm run test
+```
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
