@@ -100,6 +100,7 @@
 
   <div class="flex flex-1 justify-center gap-16 max-md:flex-col">
     <PlanCard
+      btnTestId="sign-up-basic"
       planCookieValue="basic"
       name="Basic"
       description="Basic plan, lets you keep your exported music albums synced, you pay only once"
@@ -117,6 +118,7 @@
       {/snippet}
     </PlanCard>
     <PlanCard
+      btnTestId="sign-up-free"
       planCookieValue="free"
       name="Starter"
       description="Designed for those willing to try out the service"

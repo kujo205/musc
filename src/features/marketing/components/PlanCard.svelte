@@ -10,6 +10,7 @@
     features: string[];
     isOutlined?: boolean;
     tagSnippet?: Snippet;
+    btnTestId?: string;
   }
 </script>
 
@@ -24,7 +25,8 @@
     price,
     features,
     tagSnippet,
-    planCookieValue = 'free'
+    planCookieValue = 'free',
+    btnTestId
   }: PricingCardProps = $props();
 
   function signWithGoogle() {
@@ -73,5 +75,5 @@
     </ul>
   </div>
 
-  <Button onclick={signWithGoogle}>Select Plan</Button>
+  <Button data-testid={btnTestId} onclick={signWithGoogle}>Select Plan</Button>
 </div>
