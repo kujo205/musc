@@ -31,15 +31,10 @@ export class YtMusicController {
 
     const data = await this.playlistRepository.getAllPlaylistsToSync();
 
-    console.log('file', absoluteFilePath);
-    console.log('data', data);
+    const syncResult =
+      await this.ytMusicService.syncExportedPlaylistsWithUpdatesFromLiked(absoluteFilePath);
 
-    await this.fs.writeFile(absoluteFilePath, JSON.stringify(data));
-
-    await this.ytMusicService.syncExportedPlaylistsWithUpdatesFromLiked(absoluteFilePath);
-
-    await this.fs.rm(absoluteFilePath);
-
+    console.log();
     console.info(`[synced music for ${data.length} playlists]`);
     // TODO: insert meta data into playlists syncs
   }
