@@ -4,10 +4,15 @@ import argparse
 from headers import get_raw_headers
 import asyncio
 
+def compare_arrays(a, b):
+    to_add = [item for item in a if item not in b]
+    to_remove = [item for item in b if item not in a]
+    return to_add, to_remove
 
-def add_playlist_to_existing_playlist_one(cookie, target_playlist_id, source_playlist_id='LM'):
+
+async def sync_liked_and_target_playlists_one(cookie, target_playlist_id):
     """
-    Add items from a source playlist to a target playlist without duplicates.
+    Sync the liked music playlist with a target playlist.
 
     :param cookie: str
       The cookie string for authentication.
@@ -15,34 +20,43 @@ def add_playlist_to_existing_playlist_one(cookie, target_playlist_id, source_pla
     :param target_playlist_id: str
         The target playlist ID.
 
-    :param source_playlist_id: str
-        The source playlist ID from which items are going to be added to target.
-
     :return: None
     """
 
-    print('enter add_playlist_to_existing_playlist_one')
-
     headers_dict = get_raw_headers(cookie)
-
 
     ytmusic = ytmusicapi.YTMusic(auth=headers_dict)
 
-    # print('enter get_playlist_data')
-    #
-    # data = ytmusic.get_playlist(source_playlist_id)
-    #
-    # video_ids = [track['videoId'] for track in data['tracks']]
-    #
-    # print('video_ids', video_ids)
-    #
-    # result = ytmusic.add_playlist_items(playlistId=target_playlist_id, videoIds=video_ids)
+    try:
+        target_data = ytmusic.get_playlist(playlistId=target_playlist_id, limit=None)
+    except Exception as e:
+        return {
+            'playlist_id':target_playlist_id,
+            'deleted_at_yt':True,
+            'added_number':0,
+            'removed_number':0
+        }
 
-    result = ytmusic.edit_playlist(playlistId=target_playlist_id, addPlaylistId=source_playlist_id)
+    liked_music_data = ytmusic.get_playlist(playlistId='LM', limit=None)
+    target_data_ids = [track['videoId'] for track in target_data.get('tracks', [])]
+    liked_music_data_ids = [track['videoId'] for track in liked_music_data.get('tracks', [])]
 
-    print('exit add_playlist_to_existing_playlist_one')
+    to_add, to_remove = compare_arrays(liked_music_data_ids, target_data_ids)
 
-    return result
+    if len(to_remove) > 0:
+        filtered_videos = [track for track in target_data.get('tracks', []) if track['videoId'] in to_remove]
+        ytmusic.remove_playlist_items(playlistId=target_playlist_id, videos=filtered_videos)
+
+    if len(to_add) > 0:
+        ytmusic.edit_playlist(target_playlist_id,addToTop=True)
+        ytmusic.add_playlist_items(playlistId=target_playlist_id, videoIds=to_add, duplicates=False)
+
+    return {
+        'playlist_id':target_playlist_id,
+        'deleted_at_yt':False,
+        'added_number':len(to_add),
+        'removed_number':len(to_remove)
+    }
 
 def load_input_file(file_path):
     """
@@ -53,12 +67,9 @@ def load_input_file(file_path):
     """
     with open(file_path, 'r') as file:
         data = json.load(file)
-        print(len(data))
     return data
 
 async def main():
-    print('Starting...')
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--input_file', type=str)
@@ -67,9 +78,8 @@ async def main():
 
     data = load_input_file(args.input_file)
 
-
     tasks = [
-        add_playlist_to_existing_playlist_one(
+        sync_liked_and_target_playlists_one(
             item['cookie'],
             item['target_playlist_id']
         )
@@ -77,9 +87,9 @@ async def main():
     ]
     results = await asyncio.gather(*tasks, return_exceptions=True)
 
-    for result in results:
-        print(result)
+    result_json = json.dumps(results)
+
+    print(result_json)
 
 if __name__ == "__main__":
     asyncio.run(main())
-    print('Starting...')

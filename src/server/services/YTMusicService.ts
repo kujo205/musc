@@ -78,7 +78,7 @@ export class YTMusicService extends BaseService {
    * }[]
    * @returns {void}
    * */
-  async syncExportedPlaylistsWithUpdatesFromLiked(filePath: string) {
+  async syncExportedPlaylistsWithUpdatesFromLiked(filePath: string): Promise<PlaylistSyncResult[]> {
     const resp = await this.ytMusicApiBase<void>(
       'sync_some_playlists_with_liked.py',
       ['--input_file', filePath],
@@ -96,5 +96,12 @@ export class YTMusicService extends BaseService {
       .execute();
   }
 }
+
+type PlaylistSyncResult = {
+  playlist_id: string;
+  deleted_at_yt: boolean;
+  added_number: number;
+  removed_number: number;
+};
 
 export const yTMusicService = new YTMusicService(db);
