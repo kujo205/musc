@@ -6,6 +6,7 @@ import fs from 'node:fs/promises';
 import { db } from '$db';
 import { DbError } from '$server/errors/DbError';
 import { YtMusicError } from '$server/errors/YtMusicError';
+import { env } from '$env/dynamic/private';
 
 type TFileSystem = typeof fs;
 
@@ -64,11 +65,17 @@ export class YtMusicController {
       throw new DbError(`user \`${user.email}\` cannot create auto updated playlists`);
     }
 
-    const id = await this.ytMusicService.createSharablePlaylistFromLiked(
-      user.cookie,
-      playlistName,
-      playlistDescription
-    );
+    let id: string = '';
+
+    if (env.ENV === 'test') {
+      id = crypto.randomUUID();
+    } else {
+      id = await this.ytMusicService.createSharablePlaylistFromLiked(
+        user.cookie,
+        playlistName,
+        playlistDescription
+      );
+    }
 
     if (id.length > 40) {
       throw new YtMusicError(
