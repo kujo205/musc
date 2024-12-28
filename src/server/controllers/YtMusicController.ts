@@ -31,12 +31,31 @@ export class YtMusicController {
 
     const data = await this.playlistRepository.getAllPlaylistsToSync();
 
+    this.fs.writeFile(absoluteFilePath, JSON.stringify(data));
+
     const syncResult =
       await this.ytMusicService.syncExportedPlaylistsWithUpdatesFromLiked(absoluteFilePath);
 
-    console.log();
+    const deletedPlaylists = syncResult.filter((playlist) => playlist.deleted_at_yt);
+
+    const mappedDeletedPlaylists = deletedPlaylists.map((playlist) => ({
+      id: playlist.playlist_id,
+      deleted_at_yt: playlist.deleted_at_yt
+    }));
+
+    await this.playlistRepository.bulkUpdatePlaylistsDeleted(mappedDeletedPlaylists);
+
+    const mappedPlaylistsSyncs = deletedPlaylists.map((sync) => ({
+      playlist_id: sync.playlist_id,
+      added_number: sync.added_number,
+      removed_number: sync.removed_number
+    }));
+
+    await this.playlistRepository.insertPlaylistSyncs(mappedPlaylistsSyncs);
+
+    await this.fs.rm(absoluteFilePath);
+
     console.info(`[synced music for ${data.length} playlists]`);
-    // TODO: insert meta data into playlists syncs
   }
 
   /**
@@ -92,7 +111,8 @@ export class YtMusicController {
       user_id: user.id,
       link: playlistLink,
       is_public_on_musc_marketplace: isPublicOnMuscMarketPlace,
-      is_auto_updated: isAutoUpdate
+      is_auto_updated: isAutoUpdate,
+      deleted_at_yt: false
     });
 
     return playlistLink;
