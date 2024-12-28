@@ -1,9 +1,9 @@
 generator kysely {
   provider            = "prisma-kysely"
   output              = "."
-  booleanTypeOverride = "boolean"
   enumFileName        = "enums.ts"
   fileName            = "db-types.d.ts"
+  booleanTypeOverride = "boolean"
   decimalTypeOverride = "number"
 }
 
@@ -50,7 +50,6 @@ model User {
   ytmusicCookie          String?               @map("ytmusic_cookie") @db.VarChar(10000)
   ytmusicCookieExpiresAt DateTime?             @map("ytmusic_cookie_expires_at") @db.Timestamp(0)
   ytmusicSetCookie       String?               @map("ytmusic_set_cookie") @db.VarChar(1000)
-  playlistSyncs          PlaylistSyncs[]
   playlists              Playlists[]
 }
 
@@ -75,11 +74,12 @@ model KyselyMigrationLock {
 }
 
 model PlaylistSyncs {
-  id         String     @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
-  playlistId String?    @map("playlist_id") @db.VarChar(36)
-  userId     String?    @map("user_id") @db.VarChar(36)
-  user       User?      @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "playlist_syncs_User_id_fk")
-  playlists  Playlists? @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "playlist_syncs_playlists_id_fk")
+  id            String     @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  playlistId    String?    @map("playlist_id") @db.VarChar(36)
+  addedNumber   Int        @default(0) @map("added_number")
+  removedNumber Int        @default(0) @map("removed_number")
+  createdAt     DateTime   @default(now()) @map("created_at") @db.Timestamp(0)
+  user          Playlists? @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "playlist_syncs_User_id_fk")
 
   @@index([playlistId], map: "playlist_syncs_playlists_id_fk")
   @@map("playlist_syncs")

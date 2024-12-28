@@ -46,7 +46,9 @@ export type Playlists = {
 export type PlaylistSyncs = {
   id: Generated<string>;
   playlist_id: string | null;
-  user_id: string | null;
+  added_number: Generated<number>;
+  removed_number: Generated<number>;
+  created_at: Generated<Timestamp>;
 };
 export type Session = {
   id: Generated<string>;
