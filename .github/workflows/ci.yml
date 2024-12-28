@@ -98,3 +98,12 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+  conventional-commits:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Check for conventional commits
+        uses: webiny/action-conventional-commits@v1.3.0
