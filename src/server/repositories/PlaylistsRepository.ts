@@ -9,7 +9,7 @@ export class PlaylistsRepository extends BaseRepository {
     super(db);
   }
 
-  insertPlaylist(playlist: TPlaylistInsert) {
+  insertPlaylist(playlist: Partial<TPlaylistInsert>) {
     return this.db.insertInto('playlists').values(playlist).executeTakeFirstOrThrow();
   }
 

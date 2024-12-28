@@ -26,12 +26,12 @@ export async function up(db: Kysely<never>): Promise<void> {
     sql`
         create table playlist_syncs
         (
-            id          varchar(36) default (uuid()) not null
+            id             varchar(36) default (uuid())          not null
                 primary key,
-            playlist_id varchar(36)                  null,
-            user_id     varchar(36)                  null,
-            constraint playlist_syncs_User_id_fk
-                foreign key (playlist_id) references User (id),
+            playlist_id    varchar(36)                           null,
+            added_number   int         default 0                 not null,
+            removed_number int         default 0                 not null,
+            created_at     timestamp   default CURRENT_TIMESTAMP not null,
             constraint playlist_syncs_playlists_id_fk
                 foreign key (playlist_id) references playlists (id)
         );
