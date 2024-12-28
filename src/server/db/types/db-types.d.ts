@@ -39,6 +39,7 @@ export type Playlists = {
   is_public_on_musc_marketplace: Generated<boolean>;
   is_auto_updated: Generated<boolean | null>;
   link: string;
+  deleted_at_yt: Generated<boolean | null>;
   created_at: Generated<Timestamp>;
   updated_at: Timestamp | null;
 };
