@@ -79,13 +79,13 @@ export class YTMusicService extends BaseService {
    * @returns {void}
    * */
   async syncExportedPlaylistsWithUpdatesFromLiked(filePath: string): Promise<PlaylistSyncResult[]> {
-    const resp = await this.ytMusicApiBase<void>(
+    const resp = await this.ytMusicApiBase<string>(
       'sync_some_playlists_with_liked.py',
       ['--input_file', filePath],
       'error syncing exported playlist with updates from liked'
     );
 
-    return resp;
+    return JSON.parse(resp) as PlaylistSyncResult[];
   }
 
   async fetchUserExportedPlaylists(userId: string) {
@@ -93,6 +93,7 @@ export class YTMusicService extends BaseService {
       .selectFrom('playlists')
       .select(['id', 'name', 'description', 'link', 'is_auto_updated', 'created_at'])
       .where('user_id', '=', userId)
+      .where((eb) => eb.or([eb('deleted_at_yt', '=', false), eb('deleted_at_yt', 'is', null)]))
       .execute();
   }
 }

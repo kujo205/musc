@@ -12,12 +12,13 @@ describe('PlaylistsRepository', () => {
     description: 'A description of my playlist',
     user_id: userId,
     is_public_on_musc_marketplace: true,
-    is_auto_updated: false,
-    link: 'http://example.com/playlist'
+    is_auto_updated: true,
+    link: 'http://example.com/playlist',
+    deleted_at_yt: false
   };
 
   beforeEach(async ({ integration }) => {
-    await integration.createUser(userId, 'user@email.com');
+    await integration.createUser(userId, 'user@email.com', 'basic');
 
     await playlistsRepository.insertPlaylist(playlist);
   });
