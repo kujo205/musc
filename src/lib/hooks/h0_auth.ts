@@ -4,6 +4,7 @@ import { KyselyAdapter } from '@auth/kysely-adapter';
 import Google from '@auth/core/providers/google';
 import Credentials from '@auth/core/providers/credentials';
 import { db } from '$db';
+import { freeTierEmail, basicTierEmail } from '$db/seeds/1734651868133_testing-user-population';
 
 export const { handle: h0Auth } = SvelteKitAuth({
   // @ts-expect-error our db schema should be fully compatible
@@ -24,13 +25,11 @@ export const { handle: h0Auth } = SvelteKitAuth({
       },
       // @ts-expect-error we are in dev mode
       authorize: async (credentials) => {
-        if (env.ENV !== 'dev') {
+        if (env.ENV === 'prod') {
           return null;
         }
 
-        // test@example.com - free tier user
-        // test2@example.com - basic tier user
-        if (credentials.email === 'test@example.com') {
+        if (credentials.email === freeTierEmail || credentials.email === basicTierEmail) {
           const user = await db
             .selectFrom('User')
             .selectAll()

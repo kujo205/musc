@@ -58,7 +58,10 @@
 </script>
 
 <Dialog.Root bind:open>
-  <Dialog.Trigger class={cn(buttonVariants({ variant: 'default' }), 'ml-2')}>Create</Dialog.Trigger>
+  <Dialog.Trigger
+    data-testid="create-playlist-button"
+    class={cn(buttonVariants({ variant: 'default' }), 'ml-2')}>Create</Dialog.Trigger
+  >
   <Dialog.Content class="sm:max-w-[425px]">
     <form method="POST" use:enhance action="?/create_playlist">
       <Dialog.Header>
@@ -92,7 +95,7 @@
         />
       </div>
       <Dialog.Footer class="mt-4">
-        <Button type="submit">Save changes</Button>
+        <Button data-testid="save-changes-button" type="submit">Save changes</Button>
       </Dialog.Footer>
     </form>
   </Dialog.Content>
