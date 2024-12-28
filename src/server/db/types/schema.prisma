@@ -3,8 +3,8 @@ generator kysely {
   output              = "."
   booleanTypeOverride = "boolean"
   enumFileName        = "enums.ts"
-  decimalTypeOverride = "number"
   fileName            = "db-types.d.ts"
+  decimalTypeOverride = "number"
 }
 
 datasource db {
@@ -93,6 +93,7 @@ model Playlists {
   isPublicOnMuscMarketplace Boolean         @default(false) @map("is_public_on_musc_marketplace")
   isAutoUpdated             Boolean?        @default(false) @map("is_auto_updated")
   link                      String          @db.VarChar(256)
+  deletedAtYt               Boolean?        @default(false) @map("deleted_at_yt")
   createdAt                 DateTime        @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt                 DateTime?       @map("updated_at") @db.Timestamp(0)
   playlistSyncs             PlaylistSyncs[]
