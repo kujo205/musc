@@ -26,8 +26,12 @@ export default defineConfig(() => ({
         'build/**',
         '.svelte-kit/**',
         'src/lib/components/ui',
-        '*.config.*'
+        '*.config.*',
+        'src/server/db/**',
+        'src/server/helpers/**',
+        'src/server/errors/**'
       ],
+      include: ['src/server/**'],
       reportOnFailure: true
     }
   }

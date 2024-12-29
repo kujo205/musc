@@ -3,9 +3,9 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { credentialsSchema } from '$features/account/schemas';
 import { type Actions, json } from '@sveltejs/kit';
-import { protectAuthorizedActionWrapper } from '$server/heleprs/protectAuthorizedActionWrapper';
+import { protectAuthorizedActionWrapper } from '$server/helpers/protectAuthorizedActionWrapper';
 import { userService } from '$server/services/UserService';
-import { protectAuthorized } from '$server/heleprs/protectAutorized';
+import { protectAuthorized } from '$server/helpers/protectAutorized';
 
 export const load: PageServerLoad = async (request) => {
   protectAuthorized(request);
