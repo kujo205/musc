@@ -14,6 +14,7 @@ async function login(page: Page, email: string) {
   await page.waitForURL('auth/signin');
 
   await page.fill('input[name="email"]', email);
+  await page.fill('input[name="password"]', process.env.TESTING_MUSC_PASSWORD);
 
   await page.locator('button:has-text("Credentials")').click();
 }
