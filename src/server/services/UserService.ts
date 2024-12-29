@@ -1,6 +1,6 @@
 import { BaseService } from './BaseService';
 import { db } from '$db';
-import { extractExpiresAtAndFormat } from '$server/heleprs/extractExpiresAt';
+import { extractExpiresAtAndFormat } from '$server/helpers/extractExpiresAt';
 import type { AuthorizedUserWithSession } from '$server/services/AuthService';
 
 export class UserService extends BaseService {

@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { YtMusicError } from '$server/errors/YtMusicError';
 
 import { db } from '$db';
-import { getPythonScriptPath } from '$server/heleprs/constructAbsoluteFileName';
+import { getPythonScriptPath } from '$server/helpers/constructAbsoluteFileName';
 
 export class YTMusicService extends BaseService {
   constructor(db: TDatabase) {

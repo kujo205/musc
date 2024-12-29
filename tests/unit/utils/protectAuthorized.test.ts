@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { protectAuthorized } from '$server/heleprs/protectAutorized';
+import { protectAuthorized } from '$server/helpers/protectAutorized';
 import { redirect } from '@sveltejs/kit';
 
 vi.mock('@sveltejs/kit', () => ({

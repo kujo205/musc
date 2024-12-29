@@ -1,10 +1,10 @@
 import type { PageServerLoad } from '../$types';
 import { userService } from '$server/services/UserService';
-import { protectAuthorized } from '$server/heleprs/protectAutorized';
+import { protectAuthorized } from '$server/helpers/protectAutorized';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { createPlaylistSchema } from '$features/my_playlists/schemas';
-import { protectAuthorizedActionWrapper } from '$server/heleprs/protectAuthorizedActionWrapper';
+import { protectAuthorizedActionWrapper } from '$server/helpers/protectAuthorizedActionWrapper';
 import { type Actions } from '@sveltejs/kit';
 import { ytMusicController } from '$server/controllers/YtMusicController';
 import { yTMusicService } from '$server/services/YTMusicService';
