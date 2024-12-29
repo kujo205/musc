@@ -21,11 +21,16 @@ export const { handle: h0Auth } = SvelteKitAuth({
     }),
     Credentials({
       credentials: {
-        email: { label: 'Email' }
+        email: { label: 'Email' },
+        password: { label: 'Password' }
       },
       // @ts-expect-error we are in dev mode
       authorize: async (credentials) => {
         if (env.ENV === 'prod') {
+          return null;
+        }
+
+        if (credentials.password !== env.TESTING_MUSC_PASSWORD) {
           return null;
         }
 
