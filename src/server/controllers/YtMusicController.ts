@@ -1,7 +1,7 @@
 import { YTMusicService } from '$server/services/YTMusicService';
 import { PlaylistsRepository } from '$server/repositories/PlaylistsRepository';
 import { UserRepository } from '$server/repositories/UserRepository';
-import { constructAbsoluteFileName } from '$server/heleprs/constructAbsoluteFileName';
+import { constructAbsoluteFileName } from '$server/helpers/constructAbsoluteFileName';
 import fs from 'node:fs/promises';
 import { db } from '$db';
 import { DbError } from '$server/errors/DbError';
