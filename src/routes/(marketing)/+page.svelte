@@ -17,7 +17,6 @@
   import PersonWithMobileSvg from '$features/marketing/svgs/PersonWithMobileSvg.svelte';
   import FunnyMusicFaceSvg from '$features/marketing/svgs/FunnyMusicFaceSvg.svelte';
   import CreditCardSvg from '$features/marketing/svgs/CreditCardSvg.svelte';
-  import { cn } from '$lib/utils';
 
   const features = [
     {
@@ -57,7 +56,7 @@
     >
     <!--    from-indigo-400 to-indigo-950 bg-clip-text-->
     <h1
-      class="animate-gradient w-fit bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.500),theme(colors.indigo.950),theme(colors.indigo.500),theme(colors.indigo.400))] bg-[length:200%_auto] bg-clip-text text-4xl font-extrabold text-transparent md:text-6xl"
+      class="w-fit animate-gradient bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.500),theme(colors.indigo.950),theme(colors.indigo.500),theme(colors.indigo.400))] bg-[length:200%_auto] bg-clip-text text-4xl font-extrabold text-transparent md:text-6xl"
     >
       Musc
     </h1>
