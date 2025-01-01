@@ -54,8 +54,9 @@
       <Megaphone size={12} />
       We are in public beta!</Badge
     >
+    <!--    from-indigo-400 to-indigo-950 bg-clip-text-->
     <h1
-      class="w-fit bg-gradient-to-r from-indigo-400 to-indigo-950 bg-clip-text text-7xl font-semibold text-transparent"
+      class="animate-gradient w-fit bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.500),theme(colors.indigo.950),theme(colors.indigo.500),theme(colors.indigo.400))] bg-[length:200%_auto] bg-clip-text text-4xl font-extrabold text-transparent md:text-6xl"
     >
       Musc
     </h1>
