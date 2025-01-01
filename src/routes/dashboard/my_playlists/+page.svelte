@@ -6,6 +6,7 @@
   import { MousePointerClick, Edit, Link } from 'lucide-svelte';
   import PlaylistCard from '$features/my_playlists/components/PlaylistCard.svelte';
   import CreatePlaylistModal from '$features/my_playlists/components/CreatePlaylistModal.svelte';
+  import { copyTextToClipboard } from '$lib/utils';
 
   interface Props {
     data: PageData;
@@ -59,6 +60,14 @@
     <section class="grid gap-4 md:grid-cols-2">
       {#each data.playlists as plylist}
         <PlaylistCard
+          menuButtons={[
+            {
+              label: 'Copy link to clipboard!',
+              onClick: () => {
+                copyTextToClipboard(plylist.link);
+              }
+            }
+          ]}
           description={plylist.description || 'No description'}
           href={plylist.link}
           name={plylist?.name || 'Untitled'}
