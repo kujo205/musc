@@ -49,13 +49,14 @@
 </script>
 
 <section class="mt-16 flex justify-center gap-4 max-md:flex-col">
-  <div class="flex flex-col justify-center gap-4">
+  <div class="flex flex-col justify-center gap-8">
     <Badge variant="secondary" class="gap-2 self-start">
       <Megaphone size={12} />
       We are in public beta!</Badge
     >
+    <!--    from-indigo-400 to-indigo-950 bg-clip-text-->
     <h1
-      class="w-fit bg-gradient-to-r from-indigo-400 to-indigo-950 bg-clip-text text-7xl font-semibold text-transparent"
+      class="w-fit animate-gradient bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.500),theme(colors.indigo.950),theme(colors.indigo.500),theme(colors.indigo.400))] bg-[length:200%_auto] bg-clip-text text-4xl font-extrabold text-transparent md:text-6xl"
     >
       Musc
     </h1>
@@ -63,13 +64,13 @@
       A simple way to keep your liked Youtube music public to share with your friends
     </p>
     <div class="flex gap-2">
-      <Button href="https://github.com/kujo205/musc" target="_blank">
-        <Github size={32} />
-        Github
-      </Button>
-      <Button href="/#section-pricing" class="group" variant="ghost"
+      <Button href="/#section-pricing" variant="rainbow"
         >Try it out
         <ArrowRight class="transition-all group-hover:translate-x-1" />
+      </Button>
+      <Button variant="link" href="https://github.com/kujo205/musc" target="_blank">
+        <Github size={32} />
+        Github
       </Button>
     </div>
   </div>
