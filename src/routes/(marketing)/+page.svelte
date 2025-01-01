@@ -17,6 +17,7 @@
   import PersonWithMobileSvg from '$features/marketing/svgs/PersonWithMobileSvg.svelte';
   import FunnyMusicFaceSvg from '$features/marketing/svgs/FunnyMusicFaceSvg.svelte';
   import CreditCardSvg from '$features/marketing/svgs/CreditCardSvg.svelte';
+  import { cn } from '$lib/utils';
 
   const features = [
     {
@@ -49,7 +50,7 @@
 </script>
 
 <section class="mt-16 flex justify-center gap-4 max-md:flex-col">
-  <div class="flex flex-col justify-center gap-4">
+  <div class="flex flex-col justify-center gap-8">
     <Badge variant="secondary" class="gap-2 self-start">
       <Megaphone size={12} />
       We are in public beta!</Badge
@@ -64,13 +65,13 @@
       A simple way to keep your liked Youtube music public to share with your friends
     </p>
     <div class="flex gap-2">
-      <Button href="https://github.com/kujo205/musc" target="_blank">
-        <Github size={32} />
-        Github
-      </Button>
-      <Button href="/#section-pricing" class="group" variant="ghost"
+      <Button href="/#section-pricing" variant="rainbow"
         >Try it out
         <ArrowRight class="transition-all group-hover:translate-x-1" />
+      </Button>
+      <Button variant="link" href="https://github.com/kujo205/musc" target="_blank">
+        <Github size={32} />
+        Github
       </Button>
     </div>
   </div>
