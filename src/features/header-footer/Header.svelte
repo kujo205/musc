@@ -25,7 +25,7 @@
 
 <Sheet.Root>
   <header
-    class="sticky top-0 flex justify-between border-b-2 bg-background bg-opacity-60 px-4 py-3 backdrop-blur-sm md:px-16"
+    class="sticky top-0 z-10 flex justify-between border-b-2 bg-background bg-opacity-60 px-4 py-3 backdrop-blur-sm md:px-16"
   >
     <Logo />
     <div class="max-md:hidden">
