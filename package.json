@@ -85,9 +85,10 @@
   "dependencies": {
     "@auth/kysely-adapter": "^1.7.4",
     "@auth/sveltekit": "^1.7.4",
-    "lucide-svelte": "^0.468.0",
+    "lucide-svelte": "^0.469.0",
     "mode-watcher": "^0.5.0",
     "mysql2": "^3.11.4",
+    "svelte-sonner": "^0.3.28",
     "vite": "5.4.11"
   },
   "lint-staged": {
