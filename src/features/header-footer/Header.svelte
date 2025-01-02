@@ -1,6 +1,4 @@
 <script lang="ts" module>
-  import * as Sheet from '$comp/ui/sheet';
-
   export interface HeaderProps {
     authorized: boolean;
   }
@@ -8,6 +6,8 @@
 
 <script lang="ts">
   import Logo from '$comp/ui/logo';
+  import { fly } from 'svelte/transition';
+  import * as Sheet from '$comp/ui/sheet';
   import { cn } from '$lib/utils';
   import { buttonVariants } from '$comp/ui/button';
   import { signIn, signOut } from '@auth/sveltekit/client';
@@ -41,7 +41,7 @@
   <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
     <Menu size={24} />
   </Sheet.Trigger>
-  <Sheet.Content side="right">
+  <Sheet.Content>
     {@render navigation({ className: 'flex-col gap-2 items-start' })}
   </Sheet.Content>
 {/snippet}
