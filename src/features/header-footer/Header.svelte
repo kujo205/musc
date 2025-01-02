@@ -32,19 +32,15 @@
       {@render navigation({ className: '' })}
     </div>
     <div class="md:hidden">
-      {@render burgerButtonMenu()}
+      <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
+        <Menu size={24} />
+      </Sheet.Trigger>
+      <Sheet.Content>
+        {@render navigation({ className: 'flex-col gap-2 items-start' })}
+      </Sheet.Content>
     </div>
   </header>
 </Sheet.Root>
-
-{#snippet burgerButtonMenu()}
-  <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
-    <Menu size={24} />
-  </Sheet.Trigger>
-  <Sheet.Content>
-    {@render navigation({ className: 'flex-col gap-2 items-start' })}
-  </Sheet.Content>
-{/snippet}
 
 {#snippet navigation({ className = '' })}
   <div class={`flex gap-2 ${className}`}>
