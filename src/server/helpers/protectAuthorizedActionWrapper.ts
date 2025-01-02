@@ -5,6 +5,11 @@ import { superValidate, type SuperValidated } from 'sveltekit-superforms';
 import { fail, type RequestEvent } from '@sveltejs/kit';
 import { zod } from 'sveltekit-superforms/adapters';
 
+/**
+ * Wrapper for actions that require the user to be logged in.
+ * @param params - The parameters for the action, including the event and the schema.
+ * @param cb - The callback function to run after the action is validated.
+ */
 export async function protectAuthorizedActionWrapper<T extends z.ZodSchema>(
   params: {
     event: RequestEvent;

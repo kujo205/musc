@@ -6,6 +6,7 @@
   import Header from '$features/header-footer/Header.svelte';
   import Footer from '$features/header-footer/Footer.svelte';
   import type { Snippet } from 'svelte';
+  import Modal from '$comp/custom/Modal.svelte';
 
   let {
     children,
@@ -17,6 +18,8 @@
 </script>
 
 <Toaster richColors={true} />
+
+<Modal />
 
 <svelte:head>
   <title>Musc</title>
