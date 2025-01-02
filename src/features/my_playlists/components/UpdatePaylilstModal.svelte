@@ -59,7 +59,7 @@
   let { form: formData, enhance } = form;
 </script>
 
-<form method="POST" use:enhance action="?/create_playlist">
+<form method="POST" use:enhance action="?/update_playlist">
   <Dialog.Header>
     <Dialog.Title>Update playlist</Dialog.Title>
     <Dialog.Description>Update your playlist with the latest changes</Dialog.Description>

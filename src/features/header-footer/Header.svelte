@@ -6,7 +6,6 @@
 
 <script lang="ts">
   import Logo from '$comp/ui/logo';
-  import { fly } from 'svelte/transition';
   import * as Sheet from '$comp/ui/sheet';
   import { cn } from '$lib/utils';
   import { buttonVariants } from '$comp/ui/button';

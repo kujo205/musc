@@ -5,10 +5,6 @@
   import { modalState, type TModalNames } from '$lib/modal_config';
   import { type Component } from 'svelte';
 
-  $effect(() => {
-    console.log(modalState.currentlyOpenModal);
-  });
-
   const modalsMap: Record<TModalNames, Component<never>> = {
     create_playlist: PlaylistModal,
     update_playlist: UpdatePlaylistModal

@@ -5,7 +5,7 @@
   import { toast } from 'svelte-sonner';
   import { MousePointerClick, Edit, Link } from 'lucide-svelte';
   import PlaylistCard from '$features/my_playlists/components/PlaylistCard.svelte';
-  import PlaylistModal from '$features/my_playlists/components/PlaylistModal.svelte';
+  // import PlaylistModal from '$features/my_playlists/components/PlaylistModal.svelte';
   import { copyTextToClipboard } from '$lib/utils';
   import { Button } from '$comp/ui/button';
   import { modalState } from '$lib/modal_config';
