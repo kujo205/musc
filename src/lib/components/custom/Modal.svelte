@@ -15,7 +15,7 @@
   );
 </script>
 
-<Dialog.Root bind:open={modalState.isModalOpen}>
+<Dialog.Root bind:open={modalState._isModalOpen}>
   <Dialog.Content>
     {#if Modal && modalState.currentlyOpenModal}
       <!-- TODO: fix types -->
