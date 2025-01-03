@@ -1,8 +1,13 @@
 import type { ModalItem } from './types';
 
 class ModalState {
-  isModalOpen = $state(false);
-  currentlyOpenModal = $state<ModalItem>();
+  isModalOpen;
+  currentlyOpenModal;
+
+  constructor() {
+    this.isModalOpen = $state(false);
+    this.currentlyOpenModal = $state<ModalItem>();
+  }
 
   close = () => {
     this.currentlyOpenModal = undefined;
