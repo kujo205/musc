@@ -30,12 +30,16 @@
   import InputField from '$comp/form_fields/InputField.svelte';
   import SwitchField from '$comp/form_fields/SwitchField.svelte';
   import { toast } from 'svelte-sonner';
+  import { loaderStore } from '$lib/stores/loader';
 
   const { data, hasEnoughRightForAutoUpdates, id }: Props = $props();
 
   const form = superForm(defaults(data, zodClient(updatePlaylistSchema)), {
     validators: zodClient(updatePlaylistSchema),
     id,
+    onSubmit: () => {
+      loaderStore.set(true);
+    },
     onUpdated: ({ form: f }) => {
       if (f.valid) {
         invalidateAll();
@@ -59,6 +63,7 @@
           duration: 7000
         });
       }
+      loaderStore.set(false);
     }
   });
 
