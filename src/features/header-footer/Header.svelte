@@ -53,29 +53,31 @@
 <ModeWatcher />
 
 <Sheet.Root>
-  <header
-    class="sticky top-0 z-10 flex justify-between border-b-2 bg-background bg-opacity-60 px-4 py-3 backdrop-blur-sm md:px-16"
-  >
-    <Logo />
-    <div class="max-md:hidden">
-      {@render navigation({ className: '' })}
-    </div>
-    <div class="md:hidden">
-      <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
-        <Menu size={24} />
-      </Sheet.Trigger>
-      <Sheet.Content>
-        {@render navigation({ className: 'flex-col gap-2 items-start' })}
-      </Sheet.Content>
-    </div>
-  </header>
-  {#if browser && (isNavigatingDelayed || $loaderStore)}
-    <div class="fixed h-1 w-full overflow-hidden bg-primary/50">
-      <div class="anim-indeterminate h-full bg-primary transition-[width]"></div>
-    </div>
-  {:else}
-    <div class="fixed h-1 w-full bg-transparent"></div>
-  {/if}
+  <div class="sticky top-0 z-10">
+    <header
+      class="flex justify-between bg-background bg-opacity-60 px-4 py-3 backdrop-blur-sm md:px-16"
+    >
+      <Logo />
+      <div class="max-md:hidden">
+        {@render navigation({ className: '' })}
+      </div>
+      <div class="md:hidden">
+        <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
+          <Menu size={24} />
+        </Sheet.Trigger>
+        <Sheet.Content>
+          {@render navigation({ className: 'flex-col gap-2 items-start' })}
+        </Sheet.Content>
+      </div>
+    </header>
+    {#if browser && (isNavigatingDelayed || $loaderStore)}
+      <div class="h-1 w-full overflow-hidden bg-primary/50">
+        <div class="anim-indeterminate h-full bg-primary transition-[width]"></div>
+      </div>
+    {:else}
+      <div class="h-1 w-full border-t-2 bg-transparent"></div>
+    {/if}
+  </div>
 </Sheet.Root>
 
 {#snippet navigation({ className = '' })}
