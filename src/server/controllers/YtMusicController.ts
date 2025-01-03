@@ -7,6 +7,7 @@ import { db } from '$db';
 import { DbError } from '$server/errors/DbError';
 import { YtMusicError } from '$server/errors/YtMusicError';
 import { env } from '$env/dynamic/private';
+import type { TUpdatePlaylistSchema } from '$features/my_playlists/components/UpdatePaylilstForm.svelte';
 
 type TFileSystem = typeof fs;
 
@@ -36,6 +37,7 @@ export class YtMusicController {
     const syncResult =
       await this.ytMusicService.syncExportedPlaylistsWithUpdatesFromLiked(absoluteFilePath);
 
+    console.log('sync result', syncResult);
     const deletedPlaylists = syncResult.filter((playlist) => playlist.deleted_at_yt);
 
     const mappedDeletedPlaylists = deletedPlaylists.map((playlist) => ({
@@ -116,6 +118,33 @@ export class YtMusicController {
     });
 
     return playlistLink;
+  }
+
+  async updatePlaylist(userId: string, data: TUpdatePlaylistSchema) {
+    const user = await this.userRepository.getUserById(userId);
+
+    if (!user.cookie) {
+      throw new DbError(`no cookie for a user with email \`${user.email}\``);
+    }
+
+    if (data.auto_update_playlist && user.subscription_type !== 'basic') {
+      throw new DbError(`user \`${user.email}\` cannot create auto updated playlists`);
+    }
+
+    await this.ytMusicService.updatePlaylist(
+      user.cookie,
+      data.playlist_id,
+      data?.description || '',
+      data?.name || ''
+    );
+
+    console.log('updaint');
+    await this.playlistRepository.updatePlaylist(data.playlist_id, {
+      name: data.name,
+      description: data.description,
+      is_auto_updated: data.auto_update_playlist,
+      is_public_on_musc_marketplace: data.share_with_community
+    });
   }
 }
 

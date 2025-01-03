@@ -5,8 +5,9 @@
   import { toast } from 'svelte-sonner';
   import { MousePointerClick, Edit, Link } from 'lucide-svelte';
   import PlaylistCard from '$features/my_playlists/components/PlaylistCard.svelte';
-  import CreatePlaylistModal from '$features/my_playlists/components/CreatePlaylistModal.svelte';
+  import { modalState } from '$lib/modal_config';
   import { copyTextToClipboard } from '$lib/utils';
+  import { Button } from '$comp/ui/button';
 
   interface Props {
     data: PageData;
@@ -15,6 +16,7 @@
   const { data }: Props = $props();
 
   onMount(() => {
+    console.log(data);
     if (!data.user_has_credentials) {
       toast.info(
         'Please go through a guide and enter Youtube Music credentials to access your playlists',
@@ -52,7 +54,18 @@
     {/each}
   </section>
 
-  <CreatePlaylistModal hasEnoughRightForAutoUpdates={data.autoUpdatesEnabled} form={data.form} />
+  <Button
+    data-testid="create-playlist-button"
+    onclick={() => {
+      modalState.open({
+        form: data.form,
+        name: 'create_playlist',
+        otherProps: {
+          hasEnoughRightForAutoUpdates: data.autoUpdatesEnabled
+        }
+      });
+    }}>Create</Button
+  >
 
   <div class="mt-8 flex flex-col gap-4 rounded-sm bg-muted p-4 sm:p-8">
     <h2 class="text-lg font-semibold">My exported playlists</h2>
@@ -65,6 +78,21 @@
               label: 'Copy link to clipboard!',
               onClick: () => {
                 copyTextToClipboard(plylist.link);
+              }
+            },
+            {
+              label: 'Edit',
+              onClick: () => {
+                console.log('playist', plylist.form);
+
+                modalState.open({
+                  name: 'update_playlist',
+                  otherProps: {
+                    id: plylist.id,
+                    hasEnoughRightForAutoUpdates: data.autoUpdatesEnabled,
+                    data: plylist
+                  }
+                });
               }
             }
           ]}

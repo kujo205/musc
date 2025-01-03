@@ -89,12 +89,34 @@ export class YTMusicService extends BaseService {
   }
 
   async fetchUserExportedPlaylists(userId: string) {
-    return this.db
+    const q = await this.db
       .selectFrom('playlists')
-      .select(['id', 'name', 'description', 'link', 'is_auto_updated', 'created_at'])
+      .select([
+        'id',
+        'id as playlist_id',
+        'name',
+        'description',
+
+        'link',
+        'is_auto_updated as auto_update_playlist',
+        'created_at',
+        'is_public_on_musc_marketplace as share_with_community'
+      ])
       .where('user_id', '=', userId)
       .where((eb) => eb.or([eb('deleted_at_yt', '=', false), eb('deleted_at_yt', 'is', null)]))
       .execute();
+
+    return q;
+  }
+
+  async updatePlaylist(cookie: string, playlistId: string, description: string, name: string) {
+    const resp = await this.ytMusicApiBase<string>(
+      'update_playlist.py',
+      [cookie, playlistId, description, name],
+      'error updating sharable playlist'
+    );
+
+    console.log('[update sharable playlist] updating sharable playlist ' + resp);
   }
 }
 

@@ -1,6 +1,4 @@
 <script lang="ts" module>
-  import * as Sheet from '$comp/ui/sheet';
-
   export interface HeaderProps {
     authorized: boolean;
   }
@@ -8,6 +6,7 @@
 
 <script lang="ts">
   import Logo from '$comp/ui/logo';
+  import * as Sheet from '$comp/ui/sheet';
   import { cn } from '$lib/utils';
   import { buttonVariants } from '$comp/ui/button';
   import { signIn, signOut } from '@auth/sveltekit/client';
@@ -32,19 +31,15 @@
       {@render navigation({ className: '' })}
     </div>
     <div class="md:hidden">
-      {@render burgerButtonMenu()}
+      <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
+        <Menu size={24} />
+      </Sheet.Trigger>
+      <Sheet.Content>
+        {@render navigation({ className: 'flex-col gap-2 items-start' })}
+      </Sheet.Content>
     </div>
   </header>
 </Sheet.Root>
-
-{#snippet burgerButtonMenu()}
-  <Sheet.Trigger class={cn(buttonVariants({ variant: 'ghost' }))}>
-    <Menu size={24} />
-  </Sheet.Trigger>
-  <Sheet.Content side="right">
-    {@render navigation({ className: 'flex-col gap-2 items-start' })}
-  </Sheet.Content>
-{/snippet}
 
 {#snippet navigation({ className = '' })}
   <div class={`flex gap-2 ${className}`}>
