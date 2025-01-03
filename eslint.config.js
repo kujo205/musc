@@ -19,7 +19,8 @@ export default ts.config(
     },
     rules: {
       'svelte/valid-svelte-component': 'off',
-      'svelte/no-at-html-tags': 'off'
+      'svelte/no-at-html-tags': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off'
     }
   },
   {

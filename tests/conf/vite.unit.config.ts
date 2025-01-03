@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
     setupFiles: ['tests/conf/vitest-setup.unit.ts'],
 
     coverage: {
-      provider: 'istanbul',
+      provider: 'v8',
       reporter: ['text', 'json', 'html', 'json-summary'],
       exclude: ['node_modules', 'tests', 'build/**', '.svelte-kit/**'],
       reportOnFailure: true
