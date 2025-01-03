@@ -37,6 +37,7 @@ export class YtMusicController {
     const syncResult =
       await this.ytMusicService.syncExportedPlaylistsWithUpdatesFromLiked(absoluteFilePath);
 
+    console.log('sync result', syncResult);
     const deletedPlaylists = syncResult.filter((playlist) => playlist.deleted_at_yt);
 
     const mappedDeletedPlaylists = deletedPlaylists.map((playlist) => ({

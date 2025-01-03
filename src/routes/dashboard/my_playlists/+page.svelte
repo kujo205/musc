@@ -55,6 +55,7 @@
   </section>
 
   <Button
+    data-testid="create-playlist-button"
     onclick={() => {
       modalState.open({
         form: data.form,
