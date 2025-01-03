@@ -1,22 +1,25 @@
 import type { ModalItem } from './types';
 
 class ModalState {
-  isModalOpen;
-  currentlyOpenModal;
+  _isModalOpen = $state(false);
+  _currentlyOpenModal = $state<ModalItem>();
 
-  constructor() {
-    this.isModalOpen = $state(false);
-    this.currentlyOpenModal = $state<ModalItem>();
+  get isModalOpen() {
+    return this._isModalOpen;
+  }
+
+  get currentlyOpenModal() {
+    return this._currentlyOpenModal;
   }
 
   close = () => {
-    this.currentlyOpenModal = undefined;
-    this.isModalOpen = false;
+    this._currentlyOpenModal = undefined;
+    this._isModalOpen = false;
   };
 
   open = (modal: ModalItem) => {
-    this.currentlyOpenModal = modal;
-    this.isModalOpen = true;
+    this._currentlyOpenModal = modal;
+    this._isModalOpen = true;
   };
 }
 
