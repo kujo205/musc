@@ -8,16 +8,46 @@
   import Logo from '$comp/ui/logo';
   import * as Sheet from '$comp/ui/sheet';
   import { cn } from '$lib/utils';
+  import { debounce } from 'remeda';
   import { buttonVariants } from '$comp/ui/button';
+  import { navigating } from '$app/stores';
   import { signIn, signOut } from '@auth/sveltekit/client';
   import { Github, LogOut, Menu } from 'lucide-svelte';
+  import { loaderStore } from '$lib/stores/loader';
 
   import { Button } from '$comp/ui/button';
   import { ModeWatcher } from 'mode-watcher';
 
   import ChangeModeIcon from '$comp/custom/ChangeModeIcon.svelte';
+  import { onNavigate } from '$app/navigation';
+  import { browser } from '$app/environment';
 
   const { authorized }: HeaderProps = $props();
+
+  let isNavigatingDelayed = $state(false);
+  const isNavigatingDelayedDebouncer = debounce((el: boolean) => (isNavigatingDelayed = el), {
+    waitMs: 0
+  });
+
+  $effect(() => {
+    if ($navigating) {
+      isNavigatingDelayedDebouncer.call(true);
+    } else {
+      isNavigatingDelayedDebouncer.cancel();
+      isNavigatingDelayed = false;
+    }
+  });
+
+  onNavigate((navigation) => {
+    if (!document.startViewTransition) return;
+
+    return new Promise((resolve) => {
+      document.startViewTransition(async () => {
+        resolve();
+        await navigation.complete;
+      });
+    });
+  });
 </script>
 
 <ModeWatcher />
@@ -39,6 +69,13 @@
       </Sheet.Content>
     </div>
   </header>
+  {#if browser && (isNavigatingDelayed || $loaderStore)}
+    <div class="fixed h-1 w-full overflow-hidden bg-primary/50">
+      <div class="anim-indeterminate h-full bg-primary transition-[width]"></div>
+    </div>
+  {:else}
+    <div class="fixed h-1 w-full bg-transparent"></div>
+  {/if}
 </Sheet.Root>
 
 {#snippet navigation({ className = '' })}
@@ -71,3 +108,22 @@
     </Button>
   </div>
 {/snippet}
+
+<style>
+  .anim-indeterminate {
+    transform-origin: 0% 50%;
+    animation: anim-indeterminate 2s infinite linear;
+  }
+
+  @keyframes anim-indeterminate {
+    0% {
+      transform: translateX(0) scaleX(0);
+    }
+    40% {
+      transform: translateX(0) scaleX(0.4);
+    }
+    100% {
+      transform: translateX(100%) scaleX(0.5);
+    }
+  }
+</style>
