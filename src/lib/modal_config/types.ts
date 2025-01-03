@@ -11,7 +11,7 @@ export type FormModalCompProps<
 };
 
 export interface ModalItem {
-  form: SuperValidated<{}>;
+  form?: SuperValidated<{}>;
   name: TModalNames;
-  otherProps: Record<string, unknown>;
+  otherProps?: Record<string, unknown>;
 }

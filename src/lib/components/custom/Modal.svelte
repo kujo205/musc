@@ -1,13 +1,13 @@
 <script lang="ts">
   import * as Dialog from '$lib/components/ui/dialog';
-  import PlaylistModal from '$features/my_playlists/components/PlaylistModal.svelte';
-  import UpdatePlaylistModal from '$features/my_playlists/components/UpdatePaylilstModal.svelte';
+  import CreatePlaylistForm from '$features/my_playlists/components/CreatePlaylistForm.svelte';
+  import UpdatePlaylistForm from '$features/my_playlists/components/UpdatePaylilstForm.svelte';
   import { modalState, type TModalNames } from '$lib/modal_config';
   import { type Component } from 'svelte';
 
   const modalsMap: Record<TModalNames, Component<never>> = {
-    create_playlist: PlaylistModal,
-    update_playlist: UpdatePlaylistModal
+    create_playlist: CreatePlaylistForm,
+    update_playlist: UpdatePlaylistForm
   };
 
   let Modal = $derived(

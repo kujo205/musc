@@ -5,10 +5,9 @@
   import { toast } from 'svelte-sonner';
   import { MousePointerClick, Edit, Link } from 'lucide-svelte';
   import PlaylistCard from '$features/my_playlists/components/PlaylistCard.svelte';
-  // import PlaylistModal from '$features/my_playlists/components/PlaylistModal.svelte';
+  import { modalState } from '$lib/modal_config';
   import { copyTextToClipboard } from '$lib/utils';
   import { Button } from '$comp/ui/button';
-  import { modalState } from '$lib/modal_config';
 
   interface Props {
     data: PageData;
@@ -17,6 +16,7 @@
   const { data }: Props = $props();
 
   onMount(() => {
+    console.log(data);
     if (!data.user_has_credentials) {
       toast.info(
         'Please go through a guide and enter Youtube Music credentials to access your playlists',
@@ -65,11 +65,6 @@
       });
     }}>Create</Button
   >
-  <!--  <PlaylistModal-->
-  <!--    action="?/create_playlist"-->
-  <!--    hasEnoughRightForAutoUpdates={data.autoUpdatesEnabled}-->
-  <!--    form={data.form}-->
-  <!--  />-->
 
   <div class="mt-8 flex flex-col gap-4 rounded-sm bg-muted p-4 sm:p-8">
     <h2 class="text-lg font-semibold">My exported playlists</h2>
@@ -87,7 +82,16 @@
             {
               label: 'Edit',
               onClick: () => {
-                alert('Edit');
+                console.log('playist', plylist.form);
+
+                modalState.open({
+                  name: 'update_playlist',
+                  otherProps: {
+                    id: plylist.id,
+                    hasEnoughRightForAutoUpdates: data.autoUpdatesEnabled,
+                    data: plylist
+                  }
+                });
               }
             }
           ]}

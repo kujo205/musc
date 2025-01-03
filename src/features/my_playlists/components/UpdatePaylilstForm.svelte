@@ -1,17 +1,21 @@
 <script lang="ts" module>
   import { z } from 'zod';
-  import type { FormModalCompProps } from '$lib/modal_config';
   import { modalState } from '$lib/modal_config';
 
   export const updatePlaylistSchema = z.object({
     name: z.string().optional(),
     description: z.string().optional(),
-    share_with_community: z.boolean(),
-    auto_update_playlist: z.boolean().default(false)
+    share_with_community: z.coerce.boolean(),
+    auto_update_playlist: z.coerce.boolean().default(false),
+    playlist_id: z.string()
   });
 
-  interface Props extends FormModalCompProps<typeof updatePlaylistSchema> {
+  export type TUpdatePlaylistSchema = z.infer<typeof updatePlaylistSchema>;
+
+  interface Props {
     hasEnoughRightForAutoUpdates?: boolean;
+    data: z.infer<typeof updatePlaylistSchema>;
+    id: string;
   }
 </script>
 
@@ -20,23 +24,25 @@
   import { Button } from '$lib/components/ui/form';
   import { buttonVariants } from '$lib/components/ui/button/index.js';
   import { copyTextToClipboard } from '$lib/utils';
-  import { superForm } from 'sveltekit-superforms';
+  import { superForm, defaults } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import { invalidateAll } from '$app/navigation';
   import InputField from '$comp/form_fields/InputField.svelte';
   import SwitchField from '$comp/form_fields/SwitchField.svelte';
   import { toast } from 'svelte-sonner';
 
-  const { form: f, hasEnoughRightForAutoUpdates }: Props = $props();
+  const { data, hasEnoughRightForAutoUpdates, id }: Props = $props();
 
-  const form = superForm(f, {
+  const form = superForm(defaults(data, zodClient(updatePlaylistSchema)), {
     validators: zodClient(updatePlaylistSchema),
+    id,
     onUpdated: ({ form: f }) => {
       if (f.valid) {
         invalidateAll();
       }
     },
     onResult: async (event) => {
+      console.log('event', event);
       if (event.result.type === 'success') {
         modalState.close();
         const url = event?.result?.data?.form.message;
@@ -87,6 +93,7 @@
       label="Share with community"
       bind:checked={$formData.share_with_community}
     />
+    <input type="hidden" name="playlist_id" value={$formData.playlist_id} />
   </div>
   <Dialog.Footer class="mt-4">
     <Button data-testid="save-changes-button" type="submit">Save changes</Button>
