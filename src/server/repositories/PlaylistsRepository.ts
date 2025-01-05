@@ -25,6 +25,16 @@ export class PlaylistsRepository extends BaseRepository {
     return q.execute();
   }
 
+  async getPlaylistIdAndCookies() {
+    const q = this.db
+      .selectFrom('playlists as p')
+      .leftJoin('User as u', 'p.user_id', 'u.id')
+      .select(['u.ytmusic_cookie as cookie', 'p.id'])
+      .where((eb) => eb.or([eb('p.deleted_at_yt', '=', false), eb('p.deleted_at_yt', 'is', null)]));
+
+    return q.execute();
+  }
+
   deletePlaylist(playlistId: string) {
     return this.db.deleteFrom('playlists').where('id', '=', playlistId).executeTakeFirstOrThrow();
   }
@@ -45,6 +55,19 @@ export class PlaylistsRepository extends BaseRepository {
     );
 
     return Promise.all(promises);
+  }
+
+  /**
+   * @param ids - Playlist ids to update
+   */
+  updateDeletedPlaylists(ids: string[]) {
+    if (ids.length === 0) return;
+
+    return this.db
+      .updateTable('playlists')
+      .set({ deleted_at_yt: true })
+      .where('id', 'in', ids)
+      .execute();
   }
 
   async insertPlaylistSyncs(syncs: Partial<Selectable<DB['playlist_syncs']>>[]) {
