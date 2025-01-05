@@ -60,6 +60,25 @@ export class YtMusicController {
     console.info(`[synced music for ${data.length} playlists]`);
   }
 
+  async clear404Playlists() {
+    const absoluteFilePath = constructAbsoluteFileName(
+      'delete_404_playlists_input.json',
+      import.meta.url
+    );
+
+    const data = await this.playlistRepository.getPlaylistIdAndCookies();
+
+    this.fs.writeFile(absoluteFilePath, JSON.stringify(data));
+
+    const result = await this.ytMusicService.clear404Playlists(absoluteFilePath);
+
+    await this.playlistRepository.updateDeletedPlaylists(result);
+
+    await this.fs.rm(absoluteFilePath);
+
+    console.info(`[set ${result.length} playlists deleted]`);
+  }
+
   /**
    * Creates a sharable playlist from liked songs
    * @param userId - Id of a user

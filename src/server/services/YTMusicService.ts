@@ -88,6 +88,23 @@ export class YTMusicService extends BaseService {
     return JSON.parse(resp) as PlaylistSyncResult[];
   }
 
+  /**
+   * This function checks which ytmusic playlists were deleted
+   * So than we can update our database
+   * @param filePath - Path to a json file which contains objects like {cookie:string,id:string}[]
+   */
+  async clear404Playlists(filePath: string): Promise<string[]> {
+    const resp = await this.ytMusicApiBase<string>(
+      'clear_404_playlists.py',
+      ['--input_file', filePath],
+      'error clearing deleted playlists'
+    );
+
+    const res = JSON.parse(resp) as (string | null)[];
+
+    return res.filter((r) => r !== null) as string[];
+  }
+
   async fetchUserExportedPlaylists(userId: string) {
     const q = await this.db
       .selectFrom('playlists')
