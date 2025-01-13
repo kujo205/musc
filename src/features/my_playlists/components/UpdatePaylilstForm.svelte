@@ -3,10 +3,10 @@
   import { modalState } from '$lib/modal_config';
 
   export const updatePlaylistSchema = z.object({
-    name: z.string().optional(),
+    name: z.string().nullable().optional(),
     description: z.string().optional(),
     share_with_community: z.coerce.boolean(),
-    auto_update_playlist: z.coerce.boolean().default(false),
+    auto_update_playlist: z.coerce.boolean().nullable().default(false),
     playlist_id: z.string()
   });
 
@@ -55,7 +55,7 @@
           duration: 7000
         });
       } else {
-        toast.error('Error creating playlist', {
+        toast.error('Error updating playlist', {
           duration: 7000
         });
       }
