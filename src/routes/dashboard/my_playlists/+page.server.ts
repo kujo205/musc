@@ -82,7 +82,7 @@ export const actions: Actions = {
       async ({ form, userId, data }) => {
         console.log('[playlist delete] deleting a playlist start ', data);
 
-        await ytMusicController.deletePlaylist(userId, data);
+        await ytMusicController.deletePlaylist(data.id, userId);
 
         console.log('[playlist update] deleting a playlist end');
 
