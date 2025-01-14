@@ -8,7 +8,6 @@
   import { modalState } from '$lib/modal_config';
   import { copyTextToClipboard } from '$lib/utils';
   import { Button } from '$comp/ui/button';
-  import { z } from 'zod';
 
   interface Props {
     data: PageData;
