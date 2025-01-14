@@ -1,11 +1,15 @@
-import type { ModalItem } from './types';
+import { type ModalType } from '$comp/custom/Modal.svelte';
 
 class ModalState {
   _isModalOpen = $state(false);
-  _currentlyOpenModal = $state<ModalItem>();
+  _currentlyOpenModal = $state<ModalType>();
 
   get isModalOpen() {
     return this._isModalOpen;
+  }
+
+  set isModalOpen(open) {
+    this._isModalOpen = open;
   }
 
   get currentlyOpenModal() {
@@ -17,7 +21,7 @@ class ModalState {
     this._isModalOpen = false;
   };
 
-  open = (modal: ModalItem) => {
+  open = (modal: ModalType) => {
     this._currentlyOpenModal = modal;
     this._isModalOpen = true;
   };

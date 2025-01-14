@@ -58,9 +58,9 @@
     data-testid="create-playlist-button"
     onclick={() => {
       modalState.open({
-        form: data.form,
         name: 'create_playlist',
-        otherProps: {
+        props: {
+          form: data.form,
           hasEnoughRightForAutoUpdates: data.autoUpdatesEnabled
         }
       });
@@ -83,13 +83,22 @@
             {
               label: 'Edit',
               onClick: () => {
-                console.log('playist', plylist.form);
-
                 modalState.open({
                   name: 'update_playlist',
-                  otherProps: {
+                  props: {
                     id: plylist.id,
-                    hasEnoughRightForAutoUpdates: data.autoUpdatesEnabled,
+                    hasEnoughRightForAutoUpdates: !!data.autoUpdatesEnabled,
+                    data: plylist
+                  }
+                });
+              }
+            },
+            {
+              label: 'Delete playlist',
+              onClick: () => {
+                modalState.open({
+                  name: 'delete_playlist',
+                  props: {
                     data: plylist
                   }
                 });
