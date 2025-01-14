@@ -4,6 +4,7 @@ import { protectAuthorized } from '$server/helpers/protectAutorized';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { createPlaylistSchema } from '$features/my_playlists/schemas';
+import { deletePlaylistSchema } from '$features/my_playlists/components/DeletePlaylistForm.svelte';
 import { protectAuthorizedActionWrapper } from '$server/helpers/protectAuthorizedActionWrapper';
 import { type Actions } from '@sveltejs/kit';
 import { ytMusicController } from '$server/controllers/YtMusicController';
@@ -67,6 +68,23 @@ export const actions: Actions = {
         await ytMusicController.updatePlaylist(userId, data);
 
         console.log('[playlist update] updating a playlist end');
+
+        return message(form, 'success');
+      }
+    ),
+
+  delete_playlist: async (event) =>
+    protectAuthorizedActionWrapper(
+      {
+        schema: deletePlaylistSchema,
+        event
+      },
+      async ({ form, userId, data }) => {
+        console.log('[playlist delete] deleting a playlist start ', data);
+
+        await ytMusicController.deletePlaylist(userId, data);
+
+        console.log('[playlist update] deleting a playlist end');
 
         return message(form, 'success');
       }

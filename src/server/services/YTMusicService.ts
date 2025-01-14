@@ -135,6 +135,16 @@ export class YTMusicService extends BaseService {
 
     console.log('[update sharable playlist] updating sharable playlist ' + resp);
   }
+
+  async deletePlaylist(cookie: string, playlistId: string) {
+    const resp = await this.ytMusicApiBase<string>(
+      'delete_playlist.py',
+      [cookie, playlistId],
+      'error deleting playlist'
+    );
+
+    console.log('[delete sharable playlist] deleting a playlist ' + resp);
+  }
 }
 
 type PlaylistSyncResult = {

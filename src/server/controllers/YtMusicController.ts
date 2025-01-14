@@ -165,6 +165,18 @@ export class YtMusicController {
       is_public_on_musc_marketplace: data.share_with_community
     });
   }
+
+  async deletePlaylist(playlistId: string, userId: string) {
+    const user = await this.userRepository.getUserById(userId);
+
+    if (!user.cookie) {
+      throw new DbError(`no cookie for a user with email \`${user.email}\``);
+    }
+
+    await this.ytMusicService.deletePlaylist(user.cookie, playlistId);
+
+    await this.playlistRepository.deletePlaylist(playlistId);
+  }
 }
 
 export const ytMusicController = new YtMusicController(db, fs);
