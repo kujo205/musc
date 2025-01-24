@@ -47,7 +47,9 @@ export class YtMusicController {
 
     await this.playlistRepository.bulkUpdatePlaylistsDeleted(mappedDeletedPlaylists);
 
-    const mappedPlaylistsSyncs = deletedPlaylists.map((sync) => ({
+    const filteredSyncs = syncResult.filter((pl) => pl.added_number > 0 || pl.removed_number > 0);
+
+    const mappedPlaylistsSyncs = filteredSyncs.map((sync) => ({
       playlist_id: sync.playlist_id,
       added_number: sync.added_number,
       removed_number: sync.removed_number
