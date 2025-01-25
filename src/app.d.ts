@@ -2,6 +2,7 @@ import type { Database } from '$db';
 export * from 'vitest';
 import type { TUserWithSession, AuthorizedUserWithSession } from '$server/services/AuthService';
 import * as integration from '../tests/conf/factory';
+import { type RouterOutput as RO } from '$server/trpc/router';
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 
@@ -20,6 +21,7 @@ declare global {
   type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
   type NonUndefined<T> = T extends undefined ? never : T;
   type TDatabase = Database;
+  type RouterOutput = RO;
 }
 
 declare module 'vitest' {
