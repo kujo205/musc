@@ -16,7 +16,6 @@
   const { data }: Props = $props();
 
   onMount(() => {
-    console.log(data);
     if (!data.user_has_credentials) {
       toast.info(
         'Please go through a guide and enter Youtube Music credentials to access your playlists',

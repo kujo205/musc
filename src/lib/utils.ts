@@ -34,3 +34,10 @@ export function daysLeft(targetDate: Date): number {
 export async function copyTextToClipboard(text: string) {
   await navigator.clipboard.writeText(text);
 }
+
+export function getFormattedDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short'
+  });
+}
