@@ -22,6 +22,7 @@
 
         await invalidateAll();
       }}
+      likes={playlist.likes}
       liked={playlist.liked}
       id={playlist.id}
       user_name={playlist.user_name}

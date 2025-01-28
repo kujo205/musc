@@ -7,6 +7,7 @@ export const load: PageServerLoad = async (request) => {
 
   const playlists = await serverCaller(request).community.getCommunityPlaylists();
 
+  console.log('playlists', playlists);
   return {
     playlists
   };

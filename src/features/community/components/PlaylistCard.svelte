@@ -6,6 +6,7 @@
     user_name: string | null;
     liked: boolean;
     onAddToLiked?: (id?: string) => void;
+    likes?: number;
   }
 </script>
 
@@ -15,7 +16,7 @@
   import { MousePointerClick, UserRound, Heart } from 'lucide-svelte';
   import { Button } from '$comp/ui/button';
 
-  const { id, link, name, user_name, onAddToLiked, liked }: PlaylistCardProps = $props();
+  const { id, link, name, user_name, onAddToLiked, liked, likes }: PlaylistCardProps = $props();
 </script>
 
 <Card.Root class="flex h-36 min-w-80 max-w-[520px] overflow-hidden">
@@ -43,10 +44,13 @@
             onAddToLiked(id);
           }
         }}
+        class="text-xm gap-1"
         variant="outline"
       >
-        {liked ? 'Liked' : 'Like'}
-        <Heart fill={liked ? 'red' : 'none'} />
+        <Heart size={28} fill={liked ? 'red' : 'none'} />
+        <span>
+          {likes}
+        </span>
       </Button>
     </div>
 
