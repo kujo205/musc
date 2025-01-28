@@ -11,6 +11,8 @@
     href: string;
     name: string;
     description: string;
+    is_auto_updating: boolean;
+    is_shared_with_community: boolean;
     updated_at: Date;
     menuButtons: MenuItem[];
   }
@@ -22,11 +24,20 @@
   import { buttonVariants } from '$lib/components/ui/button/button.svelte';
   import * as Card from '$lib/components/ui/card';
 
+  import { Badge } from '$comp/ui/badge';
   import { Calendar, EllipsisVertical, MousePointerClick } from 'lucide-svelte';
   import { Button } from '$comp/ui/button';
   import { cn } from '$lib/utils';
 
-  const { href, name, updated_at, description, menuButtons }: PlaylistCardProps = $props();
+  const {
+    href,
+    name,
+    updated_at,
+    description,
+    menuButtons,
+    is_auto_updating,
+    is_shared_with_community
+  }: PlaylistCardProps = $props();
 
   function getFormattedDate(date: Date) {
     return date.toLocaleDateString('en-US', {
@@ -56,12 +67,23 @@
     </div>
 
     <div class="flex justify-between">
-      {#if updated_at}
-        <span class="inline-flex items-center gap-2 text-sm text-muted-foreground">
-          <Calendar size={14} />
-          {getFormattedDate(updated_at)}
-        </span>
-      {/if}
+      <div class="flex flex-col gap-2">
+        <div class="flex inline-flex flex-wrap gap-1">
+          {#if is_auto_updating}
+            <Badge variant="green">Updating</Badge>
+          {/if}
+          {#if is_shared_with_community}
+            <Badge variant="indigo">Public</Badge>
+          {/if}
+        </div>
+
+        {#if updated_at}
+          <span class="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar size={14} />
+            {getFormattedDate(updated_at)}
+          </span>
+        {/if}
+      </div>
       <Button {href} target="_blank" variant="default" size="sm">
         <MousePointerClick />
         See

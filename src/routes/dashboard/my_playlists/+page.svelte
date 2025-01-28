@@ -70,13 +70,15 @@
     <h2 class="text-lg font-semibold">My exported playlists</h2>
 
     <section class="grid gap-4 md:grid-cols-2">
-      {#each data.playlists as plylist}
+      {#each data.playlists as playlist}
         <PlaylistCard
+          is_auto_updating={!!playlist.auto_update_playlist}
+          is_shared_with_community={playlist.share_with_community}
           menuButtons={[
             {
               label: 'Copy link to clipboard!',
               onClick: () => {
-                copyTextToClipboard(plylist.link);
+                copyTextToClipboard(playlist.link);
               }
             },
             {
@@ -85,9 +87,9 @@
                 modalState.open({
                   name: 'update_playlist',
                   props: {
-                    id: plylist.id,
+                    id: playlist.id,
                     hasEnoughRightForAutoUpdates: !!data.autoUpdatesEnabled,
-                    data: plylist
+                    data: playlist
                   }
                 });
               }
@@ -98,16 +100,16 @@
                 modalState.open({
                   name: 'delete_playlist',
                   props: {
-                    data: plylist
+                    data: playlist
                   }
                 });
               }
             }
           ]}
-          description={plylist.description || 'No description'}
-          href={plylist.link}
-          name={plylist?.name || 'Untitled'}
-          updated_at={plylist.created_at}
+          description={playlist.description || 'No description'}
+          href={playlist.link}
+          name={playlist?.name || 'Untitled'}
+          updated_at={playlist.created_at}
         />
       {/each}
     </section>
