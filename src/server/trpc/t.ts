@@ -6,9 +6,12 @@ export const t = initTRPC.context<Context>().create({ transformer: superjson });
 
 export const publicProcedure = t.procedure;
 
-export const authedProcedure = t.procedure.use(async function isAuthed(opts) {
+export const authedProcedure = t.procedure.use(async (opts) => {
+  console.log('opts', opts);
+
   const { ctx } = opts;
 
+  console.log('ctx', ctx);
   if (!ctx.info.authorized) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
