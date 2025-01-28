@@ -31,6 +31,13 @@ export type KyselyMigrationLock = {
   id: string;
   is_locked: Generated<number>;
 };
+export type LikedPlaylists = {
+  playlist_id: string;
+  user_id: string;
+  liked: Generated<boolean>;
+  created_at: Generated<Timestamp | null>;
+  updated_at: Timestamp | null;
+};
 export type Playlists = {
   id: Generated<string>;
   name: string | null;
@@ -76,6 +83,7 @@ export type DB = {
   Account: Account;
   kysely_migration: KyselyMigration;
   kysely_migration_lock: KyselyMigrationLock;
+  liked_playlists: LikedPlaylists;
   playlist_syncs: PlaylistSyncs;
   playlists: Playlists;
   Session: Session;

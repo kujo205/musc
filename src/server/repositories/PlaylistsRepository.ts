@@ -75,6 +75,18 @@ export class PlaylistsRepository extends BaseRepository {
 
     return this.db.insertInto('playlist_syncs').values(syncs).execute();
   }
+
+  async likePlaylist(userId: string, playlistId: string, liked: boolean) {
+    return this.db
+      .insertInto('liked_playlists')
+      .values({ user_id: userId, playlist_id: playlistId, liked })
+      .onDuplicateKeyUpdate({
+        liked,
+        user_id: userId,
+        playlist_id: playlistId
+      })
+      .execute();
+  }
 }
 
 export const playlistsRepository = new PlaylistsRepository(db);
