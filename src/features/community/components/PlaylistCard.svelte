@@ -5,6 +5,7 @@
     name: string | null;
     user_name: string | null;
     liked: boolean;
+    onAddToLiked?: (id?: string) => void;
   }
 </script>
 
@@ -14,7 +15,7 @@
   import { MousePointerClick, UserRound, Heart } from 'lucide-svelte';
   import { Button } from '$comp/ui/button';
 
-  const { id, link, name, user_name }: PlaylistCardProps = $props();
+  const { id, link, name, user_name, onAddToLiked, liked }: PlaylistCardProps = $props();
 </script>
 
 <Card.Root class="flex h-36 min-w-80 max-w-[520px] overflow-hidden">
@@ -36,12 +37,17 @@
       </div>
 
       <Button
-        class="px-3"
         onclick={() => {
-          alert('not implemented');
+          if (onAddToLiked) {
+            console.log('adding to liked songs');
+            onAddToLiked(id);
+          }
         }}
-        variant="outline"><Heart /></Button
+        variant="outline"
       >
+        {liked ? 'Liked' : 'Like'}
+        <Heart fill={liked ? 'red' : 'none'} />
+      </Button>
     </div>
 
     <div class="flex justify-between">
