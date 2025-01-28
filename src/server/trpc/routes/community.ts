@@ -5,44 +5,44 @@ import { playlistsRepository } from '$server/repositories/PlaylistsRepository';
 
 export const communityRouter = t.router({
   getCommunityPlaylists: authedProcedure.query(async ({ ctx }) => {
-    return db
+    const resp = await db
       .selectFrom('playlists')
       .leftJoin('User', 'playlists.user_id', 'User.id')
-      .leftJoin('liked_playlists', (join) =>
-        join
-          .onRef('liked_playlists.playlist_id', '=', 'playlists.id')
-          .on('liked_playlists.user_id', '=', ctx.profileId)
+      .leftJoin('liked_playlists as lp', (join) =>
+        join.onRef('lp.playlist_id', '=', 'playlists.id')
       )
 
-      .select(({ ref, case: sqlCase, eb }) => [
+      .select(({ eb, val }) => [
         'playlists.id',
         'playlists.link',
         'playlists.name',
         'playlists.created_at',
         'User.name as user_name',
         'User.image as user_image',
-        sqlCase()
-          .when(eb(ref('liked_playlists.liked'), '=', true))
-          .then(true)
-          .else(false)
-          .end()
-          .as('liked')
+        eb
+          .fn<
+            { user_id: string; liked: boolean }[]
+          >('JSON_ARRAYAGG', [eb.fn('JSON_OBJECT', [val('user_id'), 'lp.user_id', val('liked'), 'lp.liked'])])
+          .as('liked_by')
       ])
 
       .where('playlists.is_public_on_musc_marketplace', '=', true)
       .where('playlists.deleted_at_yt', '=', false)
       .groupBy('playlists.id')
       .execute();
+
+    return resp.map((r) => ({
+      ...r,
+      liked: r.liked_by.some((user) => user.user_id === ctx?.profileId && user.liked),
+      likes: r.liked_by.filter((user) => user.liked).length
+    }));
   }),
 
   likeCommunityPlaylist: authedProcedure
     .input(likePlaylistSchema)
     .mutation(async ({ input, ctx }) => {
-      console.log('input', input);
-
       const userId = ctx?.profileId;
 
-      // console.log(userId);
       await playlistsRepository.likePlaylist(userId, input.playlist_id, input.like);
     })
 });
