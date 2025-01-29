@@ -69,7 +69,7 @@
   <div class="mt-8 flex flex-col gap-4 rounded-sm bg-muted p-4 sm:p-8">
     <h2 class="text-lg font-semibold">My exported playlists</h2>
 
-    <section class="grid gap-4 md:grid-cols-2">
+    <section class="grid gap-4 lg:grid-cols-2">
       {#each data.playlists as playlist}
         <PlaylistCard
           is_auto_updating={!!playlist.auto_update_playlist}

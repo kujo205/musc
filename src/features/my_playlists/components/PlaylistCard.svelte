@@ -47,7 +47,10 @@
   }
 </script>
 
-<Card.Root data-testid="playlist-card" class="flex h-36 min-w-80 max-w-[520px] overflow-hidden">
+<Card.Root
+  data-testid="playlist-card"
+  class="flex max-h-44 min-h-36 min-w-80 max-w-[520px] overflow-hidden"
+>
   <a {href} class="aspect-square max-w-40 object-contain max-sm:max-w-28" target="_blank">
     <img
       class="aspect-square h-full object-cover"
