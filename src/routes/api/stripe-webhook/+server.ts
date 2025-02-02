@@ -6,9 +6,11 @@ export const POST: RequestHandler = async ({ request: req }) => {
 
   const event = await stripeService.verifyStripeWebhookCall(req);
 
-  const sessionId = event.data.object.id;
+  const sessionId = event?.data?.object?.id;
 
   console.log('[sessionId]', sessionId);
+
+  await stripeService.setSessionVerified(sessionId);
 
   return json({ received: true });
 };

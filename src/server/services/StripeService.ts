@@ -57,12 +57,45 @@ export class StripeService extends BaseService {
 
   async verifyStripeWebhookCall(req: Request) {
     try {
-      const sig = req.headers.get('stripe-signature');
+      const sig = req.headers.get('stripe-signature') as string;
       const body = await req.text();
       return stripe.webhooks.constructEvent(body, sig, STRIPE_ENDPOINT_SECRET);
     } catch (err) {
       console.log(`Unable to verify stripe event: ${err?.message}`);
       throw err;
+    }
+  }
+
+  async setSessionVerified(sessionId: string) {
+    try {
+      const res = await db
+        .selectFrom('User as u')
+        .leftJoin('stripe_sessions as s', 's.user_id', 'u.id')
+        .select(['u.id as user_id', 's.id as session_id'])
+        .where('s.stripe_session_id', '=', sessionId)
+        .executeTakeFirstOrThrow();
+
+      console.log(`[StripeSession setSessionVerified ${res.user_id}]`, sessionId);
+
+      await Promise.all([
+        db
+          .updateTable('stripe_sessions')
+          .set({
+            has_paid: true
+          })
+          .where('user_id', '=', res.user_id)
+          .executeTakeFirst(),
+
+        db
+          .updateTable('User')
+          .set({
+            subscription_type: 'basic'
+          })
+          .where('id', '=', res.user_id)
+          .executeTakeFirst()
+      ]);
+    } catch (err) {
+      console.error(`Unable to set session ${sessionId} as verified: ${err?.message}`);
     }
   }
 }
