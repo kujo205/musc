@@ -3,7 +3,7 @@
   import ThankU from '$comp/svgs/ThankU.svelte';
 </script>
 
-<div class="flex flex-col items-center gap-4">
+<div class="flex min-h-[50vh] flex-col items-center justify-center gap-4">
   <ThankU className="max-w-96 w-fit aspect-square max-h-96" />
 
   <div class="flex flex-col items-center justify-center">
