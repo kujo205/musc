@@ -18,10 +18,13 @@ export const authedProcedure = t.procedure.use(async (opts) => {
 
   const profileId = ctx.info.user?.user_id as string;
 
+  const url = new URL(ctx.request.url);
+
   return opts.next({
     ctx: {
       ...ctx,
-      profileId
+      profileId,
+      url
     }
   });
 });

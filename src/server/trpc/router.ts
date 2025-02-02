@@ -1,11 +1,13 @@
 import { type inferRouterOutputs } from '@trpc/server';
 import { t } from './t';
 import { createContext } from './context';
-import { communityRouter } from './routes/community';
+import { communityRouter } from '$server/routes/community';
+import { paymentRouter } from '$server/routes/payment';
 import type { RequestEvent } from '@sveltejs/kit';
 
 export const router = t.router({
-  community: communityRouter
+  community: communityRouter,
+  payment: paymentRouter
 });
 
 export const serverCaller = (event: RequestEvent) =>
