@@ -63,6 +63,14 @@ export type Session = {
   sessionToken: string;
   expires: Timestamp;
 };
+export type StripeSessions = {
+  id: Generated<string>;
+  stripe_session_id: string;
+  user_id: string;
+  has_paid: Generated<boolean>;
+  updated_at: Generated<Timestamp | null>;
+  created_at: Timestamp | null;
+};
 export type User = {
   id: Generated<string>;
   name: string | null;
@@ -87,6 +95,7 @@ export type DB = {
   playlist_syncs: PlaylistSyncs;
   playlists: Playlists;
   Session: Session;
+  stripe_sessions: StripeSessions;
   User: User;
   VerificationToken: VerificationToken;
 };
