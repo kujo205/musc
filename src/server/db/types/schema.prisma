@@ -1,10 +1,10 @@
 generator kysely {
   provider            = "prisma-kysely"
   output              = "."
+  decimalTypeOverride = "number"
   enumFileName        = "enums.ts"
   fileName            = "db-types.d.ts"
   booleanTypeOverride = "boolean"
-  decimalTypeOverride = "number"
 }
 
 datasource db {
@@ -55,6 +55,7 @@ model User {
   account                Account[]
   session                Session[]
   playlists              Playlists[]
+  stripeSessions         StripeSessions[]
 }
 
 model VerificationToken {
@@ -116,6 +117,19 @@ model LikedPlaylists {
 
   @@unique([playlistId, userId], map: "liked_playlists_pk")
   @@map("liked_playlists")
+}
+
+model StripeSessions {
+  id              String    @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  stripeSessionId String    @unique(map: "stripe_sessions_pk") @map("stripe_session_id") @db.VarChar(36)
+  userId          String    @map("user_id") @db.VarChar(36)
+  hasPaid         Boolean   @default(false) @map("has_paid")
+  updatedAt       DateTime? @default(now()) @map("updated_at") @db.Timestamp(0)
+  createdAt       DateTime? @map("created_at") @db.Timestamp(0)
+  user            User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "stripe_sessions_User_id_fk")
+
+  @@index([userId], map: "stripe_sessions_User_id_fk")
+  @@map("stripe_sessions")
 }
 
 enum UserSubscriptionType {

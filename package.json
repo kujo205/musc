@@ -85,12 +85,14 @@
   "dependencies": {
     "@auth/kysely-adapter": "^1.7.4",
     "@auth/sveltekit": "^1.7.4",
+    "@stripe/stripe-js": "^5.6.0",
     "@trpc/client": "^10.45.2",
     "@trpc/server": "^10.45.2",
     "lucide-svelte": "^0.469.0",
     "mode-watcher": "^0.5.0",
     "mysql2": "^3.11.4",
     "remeda": "^2.19.0",
+    "stripe": "^17.6.0",
     "superjson": "^2.2.2",
     "svelte-sonner": "^0.3.28",
     "vite": "5.4.11"
